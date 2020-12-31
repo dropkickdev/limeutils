@@ -10,9 +10,9 @@ from limeutils import byte_conv, parse_str
 class Redis:
     
     def __init__(self, **kwargs):
+        self.pre = kwargs.pop('prefix', '')
+        self.ver = kwargs.pop('version', '')
         self.r = reds.Redis(**kwargs)
-        self.pre = kwargs.get('prefix', '')
-        self.ver = kwargs.get('version', '')
     
     
     def _cleankey(self, data: models.StarterModel) -> str:
