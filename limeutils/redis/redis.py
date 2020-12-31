@@ -8,6 +8,7 @@ from limeutils import byte_conv, parse_str
 
 
 class Redis:
+    ttl = 1209600  # seconds
     
     def __init__(self, **kwargs):
         self.pre = kwargs.pop('prefix', '')
@@ -29,12 +30,14 @@ class Redis:
         return ":".join(list_)
 
 
-    def _cleanmapping(self, mapping: dict) -> dict: # noqa
+    def _cleanmapping(self, mapping: Optional[dict] = None) -> dict: # noqa
         """
         Converts any None value to an empty string.
         :param mapping: Mapping values
         :return:        dict
         """
+        if not mapping:
+            return {}
         for k, v in mapping.items():
             mapping[k] = v is None and '' or v
         return mapping
@@ -43,7 +46,7 @@ class Redis:
     # def hset(self, key: str, field: str, val: Union[str, int, float, bytes],
     #          ttl: int, mapping: dict) -> bool:
     def hset(self, key: str, field: str, val: Union[str, int, float, bytes] = '',
-             mapping: Optional[dict] = None, ttl=None, pre=None, ver=None):
+             mapping=None, ttl=None, pre=None, ver=None) -> int:
         """
         Add a single hash field using HSET
         :param key:     Hash key name
@@ -53,19 +56,20 @@ class Redis:
         :param ttl:     Custom ttl
         :param pre:     Custom prefix
         :param ver:     Custom version
-        :return:
+        :return:        int
         """
         data = models.Hset(key=key, field=field, val=val, mapping=mapping,
                            ttl=ttl, pre=pre, ver=ver)
         key = self._cleankey(data)
         mapping = self._cleanmapping(data.mapping)
+        ttl = data.ttl if data.ttl is not None else self.ttl
 
         ret = self.r.hset(key, data.field, data.val, mapping)
-        self.r.expire(data.key, data.ttl)
+        self.r.expire(key, ttl)
         return ret
     
 
-    def hmset(self, key: str, mapping: dict, ttl=None, pre=None, ver=None):
+    def hmset(self, key: str, mapping: dict, ttl=None, pre=None, ver=None) -> bool:
         """
         Add multiple hash fields. An alias for hset since hmset is deprecated.
         :param key:     Hash key name
@@ -73,14 +77,15 @@ class Redis:
         :param ttl:     Custom ttl
         :param pre:     Custom prefix
         :param ver:     Custom version
-        :return:
+        :return:        bool
         """
         data = models.Hmset(key=key, mapping=mapping, ttl=ttl, pre=pre, ver=ver)
         key = self._cleankey(data)
         mapping = self._cleanmapping(data.mapping)
+        ttl = data.ttl if data.ttl is not None else self.ttl
 
         ret = self.r.hmset(key, mapping)
-        self.r.expire(key, data.ttl)
+        self.r.expire(key, ttl)
         return ret
 
 
