@@ -1,3 +1,3 @@
 
 def foobar():
-    return 'This is the foobar'
+    return 'This is the foobar func.'
