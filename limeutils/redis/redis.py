@@ -7,63 +7,81 @@ from limeutils import byte_conv, parse_str
 
 
 
-class RedisUtil:
-    cookie_ttl = 1209600    # seconds
+class Redis:
     
     def __init__(self, **kwargs):
         self.r = reds.Redis(**kwargs)
-        self.prefix = kwargs.get('prefix', '')
-        self.ver = kwargs.get('ver', '')
-        
+        self.pre = kwargs.get('prefix', '')
+        self.ver = kwargs.get('version', '')
+    
+    
+    def _cleankey(self, data: models.StarterModel) -> str:
+        """
+        Create the final key name with prefix and/or version
+        :param data: Contains the pre and ver data
+        :return: Completed key
+        """
+        pre = data.pre and data.pre or self.pre.strip()
+        ver = data.ver and data.ver or self.ver.strip()
+
+        list_ = [pre, ver, data.key]
+        list_ = list(filter(None, list_))
+        return ":".join(list_)
+
+
+    def _cleanmapping(self, mapping: dict) -> dict: # noqa
+        """
+        Converts any None value to an empty string.
+        :param mapping: Mapping values
+        :return:        dict
+        """
+        for k, v in mapping.items():
+            mapping[k] = v is None and '' or v
+        return mapping
         
 
     # def hset(self, key: str, field: str, val: Union[str, int, float, bytes],
     #          ttl: int, mapping: dict) -> bool:
     def hset(self, key: str, field: str, val: Union[str, int, float, bytes] = '',
-             mapping: Optional[dict] = None, ttl: Optional[int] = 0):
+             mapping: Optional[dict] = None, ttl=None, pre=None, ver=None):
         """
-        Add a single hash key using HSET
+        Add a single hash field using HSET
         :param key:     Hash key name
         :param field:   Field in the key
         :param val:     Value
         :param mapping: More data(?)
-        :param ttl:     ttl
-        :return:        bool
+        :param ttl:     Custom ttl
+        :param pre:     Custom prefix
+        :param ver:     Custom version
+        :return:
         """
-        data = models.Hset(key=key, field=field, val=val, mapping=mapping, ttl=ttl)
-        data.ttl = data.ttl and data.ttl or self.cookie_ttl
-        
-        if self.prefix:
-            data.key = f'{self.prefix}:{data.key}'
+        data = models.Hset(key=key, field=field, val=val, mapping=mapping,
+                           ttl=ttl, pre=pre, ver=ver)
+        key = self._cleankey(data)
+        mapping = self._cleanmapping(data.mapping)
 
-        self.r.hset(data.key, data.field, data.val, data.mapping)
+        ret = self.r.hset(key, data.field, data.val, mapping)
         self.r.expire(data.key, data.ttl)
-        return True
-        
+        return ret
+    
 
-
-    def hmset(self, key: str, mapping: dict, ttl: Optional[int] = 0) -> bool:
+    def hmset(self, key: str, mapping: dict, ttl=None, pre=None, ver=None):
         """
-        Add a single hash key using HSET. An alias for hset since hmset is deprecated.
+        Add multiple hash fields. An alias for hset since hmset is deprecated.
         :param key:     Hash key name
         :param mapping: Fields in the key
-        :param ttl:     ttl
-        :return:        bool
+        :param ttl:     Custom ttl
+        :param pre:     Custom prefix
+        :param ver:     Custom version
+        :return:
         """
-        data = models.Hmset(key=key, mapping=mapping, ttl=ttl)
-        data.ttl = data.ttl and data.ttl or self.cookie_ttl
+        data = models.Hmset(key=key, mapping=mapping, ttl=ttl, pre=pre, ver=ver)
+        key = self._cleankey(data)
+        mapping = self._cleanmapping(data.mapping)
 
-        if self.prefix:
-            data.key = f'{self.prefix}:{data.key}'
-        
-        for k, v in data.mapping.items():
-            if v is None:
-                data.mapping[k] = ''
-        # mapping = {k: v is None and '' or v for k, v in mapping.items()}
-
-        self.r.hmset(data.key, mapping=data.mapping)
-        self.r.expire(data.key, data.ttl)
-        return True
+        ret = self.r.hmset(key, mapping)
+        self.r.expire(key, data.ttl)
+        return ret
 
 
 # def hget(key: str, field: str, default='') -> (int, float, str):         # noqa

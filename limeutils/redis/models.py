@@ -2,15 +2,21 @@ from typing import Optional, Union
 from pydantic import BaseModel, Field, validator
 
 
-class Hset(BaseModel):
+ttl = 1209600    # seconds
+
+
+class StarterModel(BaseModel):
     key: str
+    pre: Optional[Union[str, int, float]] = ''
+    ver: Optional[Union[str, int, float]] = ''
+    ttl: Optional[int] = Field(ttl, ge=0)
+
+
+class Hset(StarterModel):
     field: str
     val: Union[str, int, float, bytes] = ''
     mapping: Optional[dict] = None
-    ttl: Optional[int] = Field(0, ge=0)
     
     
-class Hmset(BaseModel):
-    key: str
+class Hmset(StarterModel):
     mapping: dict
-    ttl: Optional[int] = Field(0, ge=0)
