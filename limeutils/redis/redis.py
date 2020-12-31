@@ -9,10 +9,12 @@ from limeutils import byte_conv, parse_str
 
 class RedisUtil:
     cookie_ttl = 1209600    # seconds
-    prefix = ''
     
     def __init__(self, **kwargs):
         self.r = reds.Redis(**kwargs)
+        self.prefix = kwargs.get('prefix', '')
+        self.ver = kwargs.get('ver', '')
+        
         
 
     # def hset(self, key: str, field: str, val: Union[str, int, float, bytes],
@@ -29,19 +31,18 @@ class RedisUtil:
         :return:        bool
         """
         data = models.Hset(key=key, field=field, val=val, mapping=mapping, ttl=ttl)
-        ttl = data.ttl and data.ttl or self.cookie_ttl
-        prefix = self.prefix
+        data.ttl = data.ttl and data.ttl or self.cookie_ttl
         
-        if prefix:
-            data.key = f'{prefix}:{data.key}'
+        if self.prefix:
+            data.key = f'{self.prefix}:{data.key}'
 
         self.r.hset(data.key, data.field, data.val, data.mapping)
-        self.r.expire(data.key, ttl)
+        self.r.expire(data.key, data.ttl)
         return True
         
 
 
-    def hmset(self, *, key: str, mapping: dict, ttl: Optional[int] = 0) -> bool:
+    def hmset(self, key: str, mapping: dict, ttl: Optional[int] = 0) -> bool:
         """
         Add a single hash key using HSET. An alias for hset since hmset is deprecated.
         :param key:     Hash key name
@@ -51,10 +52,9 @@ class RedisUtil:
         """
         data = models.Hmset(key=key, mapping=mapping, ttl=ttl)
         data.ttl = data.ttl and data.ttl or self.cookie_ttl
-        prefix = self.prefix
 
-        if prefix:
-            data.key = f'{prefix}:{data.key}'
+        if self.prefix:
+            data.key = f'{self.prefix}:{data.key}'
         
         for k, v in data.mapping.items():
             if v is None:

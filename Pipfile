@@ -9,6 +9,7 @@ twine = "*"
 [packages]
 redis = "*"
 pydantic = "*"
+limeutils = {path = "."}
 
 [requires]
 python_version = "3.8"

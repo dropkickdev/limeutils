@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="limeutils", # Replace with your own username
-    version="0.1.0",
+    version="0.1.1",
     author="enchance",
     author_email="enchance@gmail.com",
     description="A collection of my utility functions",
@@ -13,7 +13,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/enchance/limeutils.git",
     packages=setuptools.find_packages(),
-    install_requires=['redis', 'pydantic', 'string'],
+    install_requires=['redis', 'pydantic'],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",

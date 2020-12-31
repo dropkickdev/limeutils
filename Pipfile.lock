@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "b383289c909e0573bd6f6d35603c8b27b40a880ec7631bfefd373a0abc10172f"
+            "sha256": "234e8716b9e2669afbca66ab53f24ab4a527f3bf0d0669f125e78531c185dd39"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -16,6 +16,10 @@
         ]
     },
     "default": {
+        "limeutils": {
+            "path": ".",
+            "version": "==0.1.0"
+        },
         "pydantic": {
             "hashes": [
                 "sha256:025bf13ce27990acc059d0c5be46f416fc9b293f45363b3d19855165fee1874f",
