@@ -1,5 +1,5 @@
-from .foo import foobar
+from .utils import *
 
 
-__version__ = "0.1.3"
+__version__ = "0.1.0"
 __author__ = 'enchance'
