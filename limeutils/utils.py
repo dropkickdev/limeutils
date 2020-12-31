@@ -5,7 +5,7 @@ from typing import Optional, Union
 def byte_conv(val):  # noqa
     try:
         return parse_str(val.decode())
-    except UnicodeDecodeError:
+    except (UnicodeDecodeError, AttributeError):
         return val
     # return val.decode('utf-8')
 

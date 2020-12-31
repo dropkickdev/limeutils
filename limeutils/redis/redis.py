@@ -42,9 +42,7 @@ class Redis:
             mapping[k] = v is None and '' or v
         return mapping
         
-
-    # def hset(self, key: str, field: str, val: Union[str, int, float, bytes],
-    #          ttl: int, mapping: dict) -> bool:
+    
     def hset(self, key: str, field: str, val: Union[str, int, float, bytes] = '',
              mapping=None, ttl=None, pre=None, ver=None) -> int:
         """
@@ -89,66 +87,65 @@ class Redis:
         return ret
 
 
-# def hget(key: str, field: str, default='') -> (int, float, str):         # noqa
-#     """
-#     Get a single hash value from redis using HGET
-#     :param key:    Name
-#     :param field:     Key
-#     :param default: Default if !key
-#     :return:        int, float, str, or None
-#     """
-#     if not isinstance(field, str):
-#         raise TypeError("Key must be a string since you're only getting one value. For multiple "
-#                         "values use hmget.")
-#
-#     prefix = get_cache_prefix()
-#     key = f'{prefix}:{key}'
-#
-#     val = redis.hget(key, field)
-#     val = byte_conv(val)
-#     return val != 'n' and val or default
-#
-#
-# def hmget(key: str, fields: Optional[Union[list, tuple]] = None) -> dict:
-#     """
-#     Get multiple hash values form redis using HMGET
-#     :param key:    Name
-#     :param fields:    A list of keys or leave empty to return all keys in that name
-#     :return:        A dict with all values parsed to either int, float, str, or None
-#     """
-#     # if keys:
-#     #     if not isinstance(keys, (list, tuple)):
-#     #         raise TypeError("Keys must be a list or tuple since you're getting multiple values. For "
-#     #                         "single values use hget.")
-#
-#     prefix = get_cache_prefix()
-#     key = f'{prefix}:{key}'
-#
-#     if fields:
-#         val_list = redis.hmget(key, fields)
-#         val_list = map(lambda x: x is not None and byte_conv(x) or x, val_list)
-#         val_dict = dict(zip(fields, val_list))
-#     else:
-#         val_dict = redis.hgetall(key)
-#         k = map(lambda x: x is not None and byte_conv(x) or x, val_dict.keys())
-#         v = map(lambda x: x is not None and byte_conv(x) or x, val_dict.values())
-#         val_dict = dict(zip(k, v))
-#     return val_dict
-#
-#
-# def hdel(key: str, *fields) -> int:
-#     """
-#     Delete a field from a a hash key
-#     Args:
-#         key (str): Key name with prefixes, if any
-#         *fields (str): Field names
-#
-#     Returns:
-#         Number of items deleted
-#     """
-#     prefix = get_cache_prefix()
-#     key = f'{prefix}:{key}'
-#
-#     count = redis.hdel(key, *fields)
-#
-#     return count
+    def hget(self, key: str, field: str, default='', pre=None, ver=None) -> Union[int, float, str]:
+        # noqa
+        """
+        Get a single hash value from redis using HGET
+        :param key:     Hash key name
+        :param field:   Field in the key
+        :param default: Default if !key
+        :param pre:     Custom prefix
+        :param ver:     Custom version
+        :return:        Parsed string
+        """
+        data = models.StarterModel(key=key, pre=pre, ver=ver)
+        key = self._cleankey(data)
+        
+        val = self.r.hget(key, field)
+        val = byte_conv(val)
+        return val != 'n' and val or default
+
+
+    # def hmget(key: str, fields: Optional[Union[list, tuple]] = None) -> dict:
+    #     """
+    #     Get multiple hash values form redis using HMGET
+    #     :param key:    Name
+    #     :param fields:    A list of keys or leave empty to return all keys in that name
+    #     :return:        A dict with all values parsed to either int, float, str, or None
+    #     """
+    #     # if keys:
+    #     #     if not isinstance(keys, (list, tuple)):
+    #     #         raise TypeError("Keys must be a list or tuple since you're getting multiple values. For "
+    #     #                         "single values use hget.")
+    #
+    #     prefix = get_cache_prefix()
+    #     key = f'{prefix}:{key}'
+    #
+    #     if fields:
+    #         val_list = redis.hmget(key, fields)
+    #         val_list = map(lambda x: x is not None and byte_conv(x) or x, val_list)
+    #         val_dict = dict(zip(fields, val_list))
+    #     else:
+    #         val_dict = redis.hgetall(key)
+    #         k = map(lambda x: x is not None and byte_conv(x) or x, val_dict.keys())
+    #         v = map(lambda x: x is not None and byte_conv(x) or x, val_dict.values())
+    #         val_dict = dict(zip(k, v))
+    #     return val_dict
+    #
+    #
+    # def hdel(key: str, *fields) -> int:
+    #     """
+    #     Delete a field from a a hash key
+    #     Args:
+    #         key (str): Key name with prefixes, if any
+    #         *fields (str): Field names
+    #
+    #     Returns:
+    #         Number of items deleted
+    #     """
+    #     prefix = get_cache_prefix()
+    #     key = f'{prefix}:{key}'
+    #
+    #     count = redis.hdel(key, *fields)
+    #
+    #     return count

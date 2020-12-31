@@ -18,3 +18,4 @@ class Hset(StarterModel):
     
 class Hmset(StarterModel):
     mapping: Optional[dict] = None
+
