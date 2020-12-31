@@ -1,12 +1,14 @@
-from typing import Optional, Union
+from typing import Optional, Union, TypeVar
 from pydantic import BaseModel, Field, validator
 
+
+K = TypeVar('K', str, int, float)
 
 
 class StarterModel(BaseModel):
     key: str
-    pre: Optional[Union[str, int, float]] = ''
-    ver: Optional[Union[str, int, float]] = ''
+    pre: Optional[K] = ''
+    ver: Optional[K] = ''
     ttl: Optional[int] = Field(0, ge=0)
 
 
