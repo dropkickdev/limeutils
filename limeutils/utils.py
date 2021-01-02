@@ -1,10 +1,12 @@
 import string
-from typing import Optional, Union
+from typing import Optional, Union, Any
 
 
 def byte_conv(val):  # noqa
     try:
-        return parse_str(val.decode())
+        x = val.decode()
+        x = isinstance(x, bytes) and len(x) == 0 and '' or parse_str(x)
+        print(x, type(x), bool(x))
     except (UnicodeDecodeError, AttributeError):
         return val
     # return val.decode('utf-8')
@@ -16,11 +18,15 @@ def parse_str(x: str):
     :param x:   String to convert
     :return:    int, float, or str
     """
-    if isinstance(x, str):
-        return x.isalpha() and x or x.isdigit() and \
-               int(x) or x.isalnum() and x or \
-               len(set(string.punctuation).intersection(x)) == 1 and \
-               x.count('.') == 1 and float(x) or x
+    if x is None:
+        raise AttributeError('Only valid strings not None values can be parsed.')
+    
+    # TODO: b'' not ''
+    x = x.strip()
+    if x.isdigit():
+        return int(x)
+    elif len(set(string.punctuation).intersection(x)) == 1 and x.count('.') == 1:
+        return float(x)
     return x
 
 
