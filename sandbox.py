@@ -33,5 +33,5 @@ r = redis.Redis(pre='MOOLAH', ver='v42')
 #     print(k, v, type(v), bool(v))
 
 
-x = r.delete(['ddd', 'bbb'])
-print(x)
+# x = r.delete(['ddd', 'bbb'])
+# print(x)
