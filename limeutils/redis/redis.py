@@ -44,18 +44,18 @@ class Redis:
         return mapping
         
     
-    def hset(self, key: str, field: str, val: Optional[V] = '',
-             mapping=None, ttl=None, pre=None, ver=None) -> int:
+    def hset(self, key: str, field: str, val: Optional[V] = '', mapping: Optional[dict] = None,
+             ttl=None, pre=None, ver=None) -> int:
         """
         Add a single hash field using HSET
         :param key:     Hash key name
         :param field:   Field in the key
         :param val:     Value
-        :param mapping: More data(?)
+        :param mapping: For multiple fields
         :param ttl:     Custom ttl
         :param pre:     Custom prefix
         :param ver:     Custom version
-        :return:        int
+        :return:        Nubmer of items set. Updating an existing field counts as 0 not 1.
         """
         data = models.Hset(key=key, field=field, val=val, mapping=mapping,
                            ttl=ttl, pre=pre, ver=ver)
@@ -68,7 +68,7 @@ class Redis:
         return ret
     
 
-    def hmset(self, key: str, mapping: dict, ttl=None, pre=None, ver=None) -> bool:
+    def hmset(self, key: str, mapping: dict, ttl=None, pre=None, ver=None) -> int:
         """
         Add multiple hash fields. An alias for hset since hmset is deprecated.
         :param key:     Hash key name
@@ -76,14 +76,17 @@ class Redis:
         :param ttl:     Custom ttl
         :param pre:     Custom prefix
         :param ver:     Custom version
-        :return:        bool
+        :return:        Nubmer of items set. Updating an existing field counts as 0 not 1.
         """
+        if not mapping:
+            return 0
+            
         data = models.Hmset(key=key, mapping=mapping, ttl=ttl, pre=pre, ver=ver)
         key = self._cleankey(data)
         mapping = self._cleanmapping(data.mapping)
         ttl = data.ttl if data.ttl is not None else self.ttl
 
-        ret = self.r.hmset(key, mapping)
+        ret = self.r.hset(key, mapping=mapping)
         self.r.expire(key, ttl)
         return ret
 
@@ -116,6 +119,9 @@ class Redis:
         :param ver:     Custom version
         :return:        Parsed data in dict format
         """
+        if isinstance(fields, list) and not len(fields):
+            return {}
+        
         data = models.Hmget(key=key, fields_=fields, pre=pre, ver=ver)
         key = self._cleankey(data)
 
