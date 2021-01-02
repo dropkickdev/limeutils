@@ -6,7 +6,7 @@ def byte_conv(val):  # noqa
     try:
         x = val.decode()
         x = isinstance(x, bytes) and len(x) == 0 and '' or parse_str(x)
-        print(x, type(x), bool(x))
+        return x
     except (UnicodeDecodeError, AttributeError):
         return val
     # return val.decode('utf-8')
@@ -21,7 +21,6 @@ def parse_str(x: str):
     if x is None:
         raise AttributeError('Only valid strings not None values can be parsed.')
     
-    # TODO: b'' not ''
     x = x.strip()
     if x.isdigit():
         return int(x)
