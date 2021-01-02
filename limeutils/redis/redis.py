@@ -1,5 +1,6 @@
 import redis as reds
 from typing import Optional, Union, Any
+from pydantic import BaseModel
 
 from . import models
 from .models import LT, V
@@ -17,7 +18,7 @@ class Redis:
         self.r = reds.Redis(**kwargs)
     
     
-    def _cleankey(self, data: models.StarterModel) -> str:
+    def _cleankey(self, data: Union[models.StarterModel, BaseModel]) -> str:
         """
         Create the final key name with prefix and/or version
         :param data: Contains the pre and ver data
@@ -137,19 +138,40 @@ class Redis:
         return val_dict
 
 
-    # def hdel(key: str, *fields) -> int:
-    #     """
-    #     Delete a field from a a hash key
-    #     Args:
-    #         key (str): Key name with prefixes, if any
-    #         *fields (str): Field names
-    #
-    #     Returns:
-    #         Number of items deleted
-    #     """
-    #     prefix = get_cache_prefix()
-    #     key = f'{prefix}:{key}'
-    #
-    #     count = redis.hdel(key, *fields)
-    #
-    #     return count
+    def hdel(self, key: str, fields: Optional[Union[str, LT]] = None, pre=None, ver=None) \
+            -> int:
+        """
+        Delete a field from a hash key.
+        :param key:     Hash key name
+        :param fields:  Fields in the key to delete
+        :param pre:     Custom prefix
+        :param ver:     Custom version
+        :return:        Number of fields deleted
+        """
+        data = models.Hdel(key=key, fields_=fields, pre=pre, ver=ver)
+        key = self._cleankey(data)
+        count = self.r.hdel(key, *data.fields_)
+        return count
+    
+    
+    def delete(self, key: Union[str, LT], pre=None, ver=None) -> int:
+        """
+        Delete keys.
+        :param key: A key or a list of keys
+        :param pre: Custom prefix
+        :param ver: Custom version
+        :return:    Number of keys deleted
+        """
+        data = models.Delete(key=key, pre=pre, ver=ver)
+        cleaned = []
+        for val in data.key:
+            # key = self._cleankey(val)
+            # cleaned.append(key)
+            pre = data.pre and data.pre or self.pre.strip()
+            ver = data.ver and data.ver or self.ver.strip()
+            list_ = [pre, ver, val]
+            list_ = list(filter(None, list_))
+            key = ":".join(list_)
+            cleaned.append(key)
+        count = self.r.delete(*cleaned)
+        return count

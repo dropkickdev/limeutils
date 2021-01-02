@@ -20,14 +20,18 @@ r = redis.Redis(pre='MOOLAH', ver='v42')
 #     print(i, type(i), bool(i))
 
 
-r.hset('abra', 'fed', 23)
-r.hset('abra', 'meh', 5.2)
-r.hset('abra', 'nothing', 0)
-r.hset('abra', 'zoom', None)
-# x = r.hmget('abra')
-x = r.hget('abra', 'nothing', 4)
-print(x, type(x), bool(x))
+# r.hset('abra', 'fed', 23)
+# r.hset('abra', 'meh', 5.2)
+# r.hset('abra', 'nothing', 0)
+# r.hset('abra', 'zoom', None)
+# # x = r.hmget('abra')
+# x = r.hget('abra', 'nothing', 4)
+# print(x, type(x), bool(x))
 
 # print('----------------------------------------------')
 # for k,v in x.items():
 #     print(k, v, type(v), bool(v))
+
+
+x = r.delete(['ddd', 'bbb'])
+print(x)
