@@ -63,7 +63,7 @@ class Redis:
         key = self._cleankey(data)
         ttl = data.ttl if data.ttl is not None else self.ttl
         
-        ret = self.r.set(key, data.val, xx=data.xx, keepttl=data.keepttl, ex=ttl)
+        ret = self.r.set(key, data.val, xx=data.xx, keepttl=data.keepttl)
         self.r.expire(key, ttl)
         return ret
     
