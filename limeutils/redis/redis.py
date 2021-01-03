@@ -100,7 +100,7 @@ class Redis:
     
     
     # TODO: Untested code
-    def get(self, key: str, default: Any = '', pre=None, ver=None):
+    def get(self, key: str, default: Optional[Any] = '', pre=None, ver=None):
         """
         Get value of non-hash keys.
         :param key:     Key name
@@ -112,12 +112,12 @@ class Redis:
         data = models.Get(key=key, default=default, pre=pre, ver=ver)
         key = self._cleankey(data)
 
-        val = self.r.hget(key)
+        val = self.r.get(key)
         val = byte_conv(val)
         return val if val or val == 0 else default
     
 
-    def hget(self, key: str, field: str, default: Any = '',
+    def hget(self, key: str, field: str, default: Optional[Any] = '',
              pre=None, ver=None) -> Union[int, float, str]:
         """
         Get a single hash value from redis using HGET

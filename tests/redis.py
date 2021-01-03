@@ -5,13 +5,12 @@ class RedisTest(unittest.TestCase):
     
     def setUp(self) -> None:
         self.reds = mainredis.Redis()
-        r = redis.Redis(pre='MOOLAH', ver='v42')
-        self.r = r
-        r.hset('abra', 'foo', 'bar')
-        r.hset('abra', 'fed', 23)
-        r.hset('abra', 'meh', 5.2)
-        r.hset('abra', 'nothing', 0)
-        r.hset('abra', 'zoom', None)
+        self.r = redis.Redis(pre='MOOLAH', ver='v42')
+        self.r.hset('abra', 'foo', 'bar')
+        self.r.hset('abra', 'fed', 23)
+        self.r.hset('abra', 'meh', 5.2)
+        self.r.hset('abra', 'nothing', 0)
+        self.r.hset('abra', 'zoom', None)
         
         
     def test_hset(self):
@@ -76,12 +75,28 @@ class RedisTest(unittest.TestCase):
         self.assertEqual(self.r.delete(['xxx', 'ddd']), 1)
         
     
-    def test_get(self):
-        pass
-    
-    
     def test_set(self):
-        pass
+        self.reds.delete('MOOLAH:v42:sam')
+        self.assertTrue(self.r.set('sam', 'abc'))
+        self.assertTrue(self.r.set('sam', '123'))
+        self.assertTrue(self.r.set('sam', 'foo'))
+        self.assertTrue(self.r.set('sam', 'foo'))
+        self.assertTrue(self.r.set('sam', ''))
+        self.assertTrue(self.r.set('sam', None))
+        
+        
+    def test_get(self):
+        self.r.set('qqq', 'abc')
+        self.r.set('www', '123')
+        self.r.set('rrr', '')
+        self.r.set('lll', None)
+        self.assertEqual(self.r.get('qqq', 789), 'abc')
+        self.assertEqual(self.r.get('www', 789), 123)
+        self.assertEqual(self.r.get('rrr', 789), 789)
+        self.assertEqual(self.r.get('lll', 789), 789)
+        self.assertEqual(self.r.get('lll'), '')
+        
+    
         
 
 if __name__ == '__main__':

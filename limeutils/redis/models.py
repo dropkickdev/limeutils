@@ -68,11 +68,11 @@ class Set(StarterModel):
     
 
 class Get(StarterModel):
-    default: Any = ''
+    default: Optional[Any] = ''
 
 
 class Hget(StarterModel):
-    default: Any = ''
+    default: Optional[Any] = ''
 
     
 class Hmget(StarterModel):
