@@ -43,7 +43,30 @@ class Redis:
         for k, v in mapping.items():
             mapping[k] = v is None and '' or v
         return mapping
+       
+    
+    # TODO: Untested code
+    def set(self, key: str, val: Optional[V] = '', xx: bool = False, keepttl: bool = False,
+            ttl=None, pre=None, ver=None):
+        """
+        Set single value key.
+        :param key:     Hash key name
+        :param val:     Value
+        :param xx:      Set to val only if key already exists
+        :param keepttl: Retain the time to live associated with the key.
+        :param ttl:     Custom ttl
+        :param pre:     Custom prefix
+        :param ver:     Custom version
+        :return:
+        """
+        data = models.Set(key=key, val=val, xx=xx, keepttl=keepttl, ttl=ttl, pre=pre, ver=ver)
+        key = self._cleankey(data)
+        ttl = data.ttl if data.ttl is not None else self.ttl
         
+        ret = self.r.set(key, data.val, xx=data.xx, keepttl=data.keepttl, ex=ttl)
+        self.r.expire(key, ttl)
+        return ret
+    
     
     def hset(self, key: str, field: str, val: Optional[V] = '', mapping: Optional[dict] = None,
              ttl=None, pre=None, ver=None) -> int:
@@ -90,7 +113,21 @@ class Redis:
         ret = self.r.hset(key, mapping=mapping)
         self.r.expire(key, ttl)
         return ret
+    
+    
+    # TODO: Untested code
+    def get(self, key: str, pre=None, ver=None):
+        """
+        Get value of non-hash keys.
+        :param key:     Key name
+        :return:
+        """
+        data = models.Get(key=key, pre=pre, ver=ver)
+        key = self._cleankey(data)
 
+        ret = self.r.hget(key)
+        return ret
+    
 
     def hget(self, key: str, field: str, default: Any = '',
              pre=None, ver=None) -> Union[int, float, str]:

@@ -8,8 +8,15 @@ V = Union[str, int, float, bytes]
 
 
 def listmaker(val):
+    """Validator: Convert str to list with one item."""
     if isinstance(val, str):
         return [val]
+    return val
+
+def nonone(val):
+    """Validator: Convert None to empty string."""
+    if val is None:
+        return ''
     return val
 
 
@@ -18,7 +25,7 @@ class StarterModel(BaseModel):
     pre: Optional[V] = ''
     ver: Optional[V] = ''
     ttl: Optional[int] = Field(0, ge=0)
-
+    
 
 class Hset(StarterModel):
     field: str
@@ -26,22 +33,37 @@ class Hset(StarterModel):
     mapping: Optional[dict] = None
     
     @validator('val')
-    def nonone(cls, val):
-        if val is None:
-            return ''
-        return val
+    def nonetostr(cls, val):
+        return nonone(val)
     
     
 class Hmset(StarterModel):
     mapping: Optional[dict] = None
 
     @validator('mapping')
-    def nonone(cls, val):
-        for k, v in val.items():
-            if v is None:
-                val[k] = ''
-        return val
+    def nonetostr(cls, val):
+        return nonone(val)
+
+
+class Set(StarterModel):
+    val: Optional[V] = ''
+    xx: bool = False
+    keepttl: bool = False
+
+
+    @validator('val')
+    def nonetostr(cls, val):
+        return nonone(val)
+
     
+    @validator('xx', 'keepttl')
+    def boolonly(cls, val):
+        return bool(val)
+    
+
+class Get(StarterModel):
+    pass
+
     
 class Hmget(StarterModel):
     fields_: Optional[LT] = None
