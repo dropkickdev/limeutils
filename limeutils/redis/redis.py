@@ -31,9 +31,8 @@ class Redis:
         return ":".join(list_)
     
     
-    # TODO: Untested code
     def set(self, key: str, val: Optional[V] = '', xx: bool = False, keepttl: bool = False,
-            ttl=None, pre=None, ver=None):
+            ttl=None, pre=None, ver=None) -> bool:
         """
         Set single value key.
         :param key:     Hash key name
@@ -43,7 +42,7 @@ class Redis:
         :param ttl:     Custom ttl
         :param pre:     Custom prefix
         :param ver:     Custom version
-        :return:
+        :return:        True on success
         """
         data = models.Set(key=key, val=val, xx=xx, keepttl=keepttl, ttl=ttl, pre=pre, ver=ver)
         key = self._cleankey(data)
@@ -99,15 +98,14 @@ class Redis:
         return ret
     
     
-    # TODO: Untested code
-    def get(self, key: str, default: Optional[Any] = '', pre=None, ver=None):
+    def get(self, key: str, default: Optional[Any] = '', pre=None, ver=None) -> V:
         """
         Get value of non-hash keys.
         :param key:     Key name
         :param default: Default if !key
         :param pre:     Custom prefix
         :param ver:     Custom version
-        :return:
+        :return:        Parsed string
         """
         data = models.Get(key=key, default=default, pre=pre, ver=ver)
         key = self._cleankey(data)
@@ -118,7 +116,7 @@ class Redis:
     
 
     def hget(self, key: str, field: str, default: Optional[Any] = '',
-             pre=None, ver=None) -> Union[int, float, str]:
+             pre=None, ver=None) -> V:
         """
         Get a single hash value from redis using HGET
         :param key:     Hash key name

@@ -82,9 +82,7 @@ class Hmget(StarterModel):
 class Hdel(StarterModel):
     fields_: Optional[Union[str, LT]] = None
     
-    @validator('fields_')
-    def makelist(cls, val):
-        return listmaker(val)
+    _clean_fields = validator('fields_', allow_reuse=True)(listmaker)
     
     
 class Delete(BaseModel):
@@ -92,6 +90,4 @@ class Delete(BaseModel):
     pre: Optional[V] = ''
     ver: Optional[V] = ''
 
-    @validator('key')
-    def makelist(cls, val):
-        return listmaker(val)
+    _clean_fields = validator('key', allow_reuse=True)(listmaker)
