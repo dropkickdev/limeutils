@@ -66,10 +66,10 @@ def split_fullname(fullname: str, default: str = '',
     :return:            tuple
     """
     if prefix and not isinstance(prefix, (str, list, tuple)):
-        raise TypeError(_('`prefix` must be a list/str for multi/single values.'))
+        raise TypeError('`prefix` must be a list/str for multi/single values.')
 
     if suffix and not isinstance(suffix, (str, list, tuple)):
-        raise TypeError(_('`suffix` must be a list/str for multi/single values.'))
+        raise TypeError('`suffix` must be a list/str for multi/single values.')
 
     prefix = isinstance(prefix, str) and [prefix] or prefix or []
     suffix = isinstance(suffix, str) and [suffix] or suffix or []
