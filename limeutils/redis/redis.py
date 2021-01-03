@@ -4,8 +4,7 @@ from pydantic import BaseModel
 
 from . import models
 from .models import LT, V
-from limeutils import byte_conv, parse_str
-# from app.settings import settings as s
+from limeutils import byte_conv
 
 
 
@@ -30,20 +29,7 @@ class Redis:
         list_ = [pre, ver, data.key]
         list_ = list(filter(None, list_))
         return ":".join(list_)
-
-
-    def _cleanmapping(self, mapping: Optional[dict] = None) -> dict: # noqa
-        """
-        Converts any None value to an empty string.
-        :param mapping: Mapping values
-        :return:        dict
-        """
-        if not mapping:
-            return {}
-        for k, v in mapping.items():
-            mapping[k] = v is None and '' or v
-        return mapping
-       
+    
     
     # TODO: Untested code
     def set(self, key: str, val: Optional[V] = '', xx: bool = False, keepttl: bool = False,
@@ -84,10 +70,9 @@ class Redis:
         data = models.Hset(key=key, field=field, val=val, mapping=mapping,
                            ttl=ttl, pre=pre, ver=ver)
         key = self._cleankey(data)
-        mapping = self._cleanmapping(data.mapping)
         ttl = data.ttl if data.ttl is not None else self.ttl
-
-        ret = self.r.hset(key, data.field, data.val, mapping)
+        
+        ret = self.r.hset(key, data.field, data.val, data.mapping)
         self.r.expire(key, ttl)
         return ret
     
@@ -107,26 +92,29 @@ class Redis:
             
         data = models.Hmset(key=key, mapping=mapping, ttl=ttl, pre=pre, ver=ver)
         key = self._cleankey(data)
-        mapping = self._cleanmapping(data.mapping)
         ttl = data.ttl if data.ttl is not None else self.ttl
 
-        ret = self.r.hset(key, mapping=mapping)
+        ret = self.r.hset(key, mapping=data.mapping)
         self.r.expire(key, ttl)
         return ret
     
     
     # TODO: Untested code
-    def get(self, key: str, pre=None, ver=None):
+    def get(self, key: str, default: Any = '', pre=None, ver=None):
         """
         Get value of non-hash keys.
         :param key:     Key name
+        :param default: Default if !key
+        :param pre:     Custom prefix
+        :param ver:     Custom version
         :return:
         """
-        data = models.Get(key=key, pre=pre, ver=ver)
+        data = models.Get(key=key, default=default, pre=pre, ver=ver)
         key = self._cleankey(data)
 
-        ret = self.r.hget(key)
-        return ret
+        val = self.r.hget(key)
+        val = byte_conv(val)
+        return val if val or val == 0 else default
     
 
     def hget(self, key: str, field: str, default: Any = '',
@@ -140,7 +128,7 @@ class Redis:
         :param ver:     Custom version
         :return:        Parsed string
         """
-        data = models.StarterModel(key=key, pre=pre, ver=ver)
+        data = models.Hget(key=key, default=default, pre=pre, ver=ver)
         key = self._cleankey(data)
         
         val = self.r.hget(key, field)

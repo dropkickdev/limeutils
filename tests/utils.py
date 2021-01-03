@@ -5,9 +5,8 @@ from limeutils import utils, redis
 class UtilsTest(unittest.TestCase):
     
     def setUp(self) -> None:
-        r = redis.Redis(pre='MOOLAH', ver='v42')
-        self.r = r
-        r.hmset('abra', dict(fed=23, meh=5.2, nothing=0, zoom=None))
+        self.r = redis.Redis(pre='MOOLAH', ver='v42')
+        self.r.hmset('abra', dict(fed=23, meh=5.2, nothing=0, zoom=None))
     
     def test_isfloat(self):
         self.assertTrue(utils.isfloat(3))

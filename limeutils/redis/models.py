@@ -1,4 +1,4 @@
-from typing import Optional, Union, TypeVar
+from typing import Optional, Union, Any
 from pydantic import BaseModel, Field, validator
 
 
@@ -19,6 +19,15 @@ def nonone(val):
         return ''
     return val
 
+def nonone_mapping(val):
+    """Validator: Convert None to empty string."""
+    if val is None or not val:
+        return None
+    else:
+        for k, v in val.items():
+            val[k] = '' if v is None else v
+    return val
+
 
 class StarterModel(BaseModel):
     key: V
@@ -31,6 +40,8 @@ class Hset(StarterModel):
     field: str
     val: Optional[V]
     mapping: Optional[dict] = None
+
+    _clean_mapping = validator('mapping', allow_reuse=True)(nonone_mapping)
     
     @validator('val')
     def nonetostr(cls, val):
@@ -39,10 +50,8 @@ class Hset(StarterModel):
     
 class Hmset(StarterModel):
     mapping: Optional[dict] = None
-
-    @validator('mapping')
-    def nonetostr(cls, val):
-        return nonone(val)
+    
+    _clean_mapping = validator('mapping', allow_reuse=True)(nonone_mapping)
 
 
 class Set(StarterModel):
@@ -50,10 +59,7 @@ class Set(StarterModel):
     xx: bool = False
     keepttl: bool = False
 
-
-    @validator('val')
-    def nonetostr(cls, val):
-        return nonone(val)
+    _clean_val = validator('val', allow_reuse=True)(nonone)
 
     
     @validator('xx', 'keepttl')
@@ -62,7 +68,11 @@ class Set(StarterModel):
     
 
 class Get(StarterModel):
-    pass
+    default: Any = ''
+
+
+class Hget(StarterModel):
+    default: Any = ''
 
     
 class Hmget(StarterModel):

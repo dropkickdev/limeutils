@@ -75,6 +75,14 @@ class RedisTest(unittest.TestCase):
         self.assertEqual(self.r.delete(''), 0)
         self.assertEqual(self.r.delete(['xxx', 'ddd']), 1)
         
+    
+    def test_get(self):
+        pass
+    
+    
+    def test_set(self):
+        pass
+        
 
 if __name__ == '__main__':
     unittest.main()
