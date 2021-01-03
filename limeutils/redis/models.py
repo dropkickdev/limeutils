@@ -91,3 +91,4 @@ class Delete(BaseModel):
     ver: Optional[V] = ''
 
     _clean_fields = validator('key', allow_reuse=True)(listmaker)
+
