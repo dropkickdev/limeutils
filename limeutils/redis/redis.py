@@ -64,7 +64,7 @@ class Redis:
         :param ttl:     Custom ttl
         :param pre:     Custom prefix
         :param ver:     Custom version
-        :return:        Nubmer of items set. Updating an existing field counts as 0 not 1.
+        :return:        Number of fields set. Updating an existing field counts as 0 not 1.
         """
         data = models.Hset(key=key, field=field, val=val, mapping=mapping,
                            ttl=ttl, pre=pre, ver=ver)

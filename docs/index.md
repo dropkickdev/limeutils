@@ -1,17 +1,18 @@
-# Welcome to MkDocs
+Installation
+----------------------
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+### Install with `pip`
+This is the recommended way to install Limeutils.
 
-## Commands
+For `pip` users
+```
+pip install limeutils
+```
+For `pipenv` users
+```
+pipenv install limeutils
+```
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+### Install with `git`
 
-## Project layout
-
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+### Install a fork

@@ -14,8 +14,8 @@ Install via `pipenv`
 
 ### Install from source
 
-From source
-
-    git clone https://github.com/enchance/limeutils.git
+To follow
 
 ## Documentation
+
+View the documentation at: https://enchance.github.io/limeutils/

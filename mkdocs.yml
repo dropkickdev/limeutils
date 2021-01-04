@@ -1,12 +1,29 @@
 site_name: Limeutils
 theme:
   name: material
+  palette:
+    primary: green
+    accent: green
+  icon:
+    repo: fontawesome/brands/github-alt
 
-palette:
-  primary: green
-  accent: green
+repo_name: enchance/limeutils
+repo_url: https://github.com/enchance/limeutils.git
+edit_uri: ''
 
 nav:
-  - 'Home': index.md
-  - 'Utils': utils.md
-  - 'Redis': redis.md
+  - Home: index.md
+  - Utilities: utils.md
+  - Redis:
+    - Redis API: redis/api.md
+    - Models: redis/models.md
+  - changelog.md
+
+markdown_extensions:
+  - markdown.extensions.codehilite:
+      guess_lang: false
+  - markdown_include.include:
+      base_path: docs
+  - admonition
+  - codehilite
+  - extra

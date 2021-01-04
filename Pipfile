@@ -11,6 +11,8 @@ sphinx = "*"
 redis = "*"
 pydantic = "*"
 limeutils = {path = "."}
+markdown-include = "*"
+hiredis = "*"
 
 [requires]
 python_version = "3.8"
