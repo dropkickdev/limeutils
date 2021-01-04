@@ -1,10 +1,12 @@
-site_name: Limestreet
+site_name: Limeutils
 theme:
   name: material
 
-
+palette:
+  primary: green
+  accent: green
 
 nav:
-  - 'Home' index.md
-  - 'Utils' utils.md
-  - 'Redis' redis.md
+  - 'Home': index.md
+  - 'Utils': utils.md
+  - 'Redis': redis.md
