@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>Redis - Limeutils</title>
+        <title>Changelog - Limeutils</title>
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/font-awesome.min.css" rel="stylesheet">
         <link href="../css/base.css" rel="stylesheet">
@@ -36,11 +36,11 @@
                             <li class="navitem">
                                 <a href=".." class="nav-link">Welcome to MkDocs</a>
                             </li>
-                            <li class="navitem">
-                                <a href="../changelog/" class="nav-link">Changelog</a>
-                            </li>
                             <li class="navitem active">
-                                <a href="./" class="nav-link">Redis</a>
+                                <a href="./" class="nav-link">Changelog</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../redis/" class="nav-link">Redis</a>
                             </li>
                             <li class="navitem">
                                 <a href="../utils/" class="nav-link">Utils</a>
@@ -54,12 +54,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../changelog/" class="nav-link">
+                                <a rel="prev" href=".." class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../utils/" class="nav-link">
+                                <a rel="next" href="../redis/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -80,104 +80,12 @@
     
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
-            
-            <li class="nav-item" data-level="1"><a href="#redis" class="nav-link">Redis</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#setup" class="nav-link">Setup</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#methods" class="nav-link">Methods</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-            
-            <li class="nav-item" data-level="1"><a href="#custom-data-types" class="nav-link">Custom data types</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
         </ul>
     </div>
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="redis">Redis</h1>
-<h2 id="setup">Setup</h2>
-<p>The <code>Redis</code> class uses the official <code>redis</code> package to implement its methods. This class acts as
- a wrapper for it silently parsing all data coming from your redis database into python
-  data types.</p>
-<pre><code class="language-py">from limeutils import redis
-
-# Create the redis object
-r = redis.Redis(pre='FOOBAR', ver='v1')
-</code></pre>
-<ul>
-<li><code>pre</code>: Prefix for your project. Defaults to an empty string.</li>
-<li><code>ver</code>: Version for your key. Defaults to an empty string.</li>
-</ul>
-<p>You can add details about your connection in <code>Redis()</code>. In this case only the default settings
- are being used.</p>
-<p>Adding redis connection info:</p>
-<pre><code class="language-py">from limeutils import redis
-
-r = redis.Redis(host='localhost', port=2468, db=0, pre='FOOBAR', ver='v1')
-</code></pre>
-<h4 id="key-prefixing">Key prefixing</h4>
-<p>It's recommended to use key prefixing in redis so including the <code>pre</code> and <code>ver</code> attributes does this for you. For example, the key <code>user-123</code> is saved as <strong>FOOBAR:v1:user-123</strong> but in your code you just type in <code>user-123</code> and not the prefixed version.</p>
-<p>If you don't want to add any prefixing to your keys then just don't add them when instantiating your object: <code>r = redis.Redis()</code>.</p>
-<h3 id="quickstart">Quickstart</h3>
-<pre><code class="language-python">from limeutils import redis
-
-# Create the redis object
-r = redis.Redis(pre='FOOBAR', ver='v1')
-
-# Save a key
-r.set('samplekey', 'hello there')
-
-# Read the key
-message = r.get('samplekey')
-
-# Save a hash
-r.hset('user-123', 'username', 'jimisthebomb')
-
-# Read the hash
-username = r.hget('user-123', 'username')
-</code></pre>
-<h2 id="methods">Methods</h2>
-<p>All methods are accessible from an instance of the <code>Redis</code> class. All methods are validated using
- the <code>pydantic</code> package.</p>
-<p>Below are some custom data types used to make the code shorter.
- ```python
-from typing import Union</p>
-<h1 id="custom-data-types">Custom data types</h1>
-<p>LT = Union[list, tuple]
-V = Union[str, int, float, bytes]
-<code>``
-The</code>LT<code>and</code>V` data types are used throughout this package.</p>
-<p><code>get()</code>
-Something</p>
-<p><code>hget()</code>
-Something</p>
-<p><code>hmget()</code>
-Something</p>
-<p><code>hmset()</code>
-Something</p>
-<p><code>hset()</code>
-Something</p>
-<p><code>set(key: str, val: V, xx: bool = False, keepttl: bool = False, ttl=None, pre=None, ver=None
-)</code>{:.python}</p>
-<ul>
-<li><code>key</code>: Key name</li>
-<li><code>val</code>: Key value</li>
-<li><code>xx</code>: Set to val only if key already exists</li>
-<li><code>keepttl</code>: Retain the time to live associated with the key.</li>
-<li><code>ttl</code>: TTL for this key. Can be in <code>int</code> seconds or a <code>timedelta</code> object.</li>
-<li><code>pre</code>: Custom prefix. Overrides the <em>pre</em> set in <code>Redis()</code></li>
-<li><code>ver</code>: Custom version. Overrides the <em>ver</em> set in <code>Redis()</code></li>
-</ul>
-<p><code>hget()</code></p></div>
+</div>
             </div>
         </div>
 
