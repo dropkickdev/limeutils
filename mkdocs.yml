@@ -1,3 +1,10 @@
 site_name: Limestreet
 theme:
   name: material
+
+
+
+nav:
+  - 'Home' index.md
+  - 'Utils' utils.md
+  - 'Redis' redis.md
