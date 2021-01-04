@@ -256,6 +256,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#quickstart" class="md-nav__link">
+    Quickstart
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#setup" class="md-nav__link">
     Setup
   </a>
@@ -264,28 +271,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#add-prefixes-to-your-keys" class="md-nav__link">
-    Add prefixes to your keys
-  </a>
-  
-    <nav class="md-nav" aria-label="Add prefixes to your keys">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#key-prefixing" class="md-nav__link">
-    Key prefixing
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#quickstart" class="md-nav__link">
-    Quickstart
+  <a href="#key-prefixes" class="md-nav__link">
+    Key Prefixes
   </a>
   
 </li>
@@ -296,9 +283,57 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#methods" class="md-nav__link">
-    Methods
+  <a href="#redis-api" class="md-nav__link">
+    Redis API
   </a>
+  
+    <nav class="md-nav" aria-label="Redis API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getkey-str-default-optionalany-prenone-vernone" class="md-nav__link">
+    get(key: str, default: Optional[Any] = '', pre=None, ver=None)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hget" class="md-nav__link">
+    hget()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hmget" class="md-nav__link">
+    hmget()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hmset" class="md-nav__link">
+    hmset()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hset" class="md-nav__link">
+    hset()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setkey-str-val-v-xx-bool-false-keepttl-bool-false-ttlnone-prenone-vernone" class="md-nav__link">
+    set(key: str, val: V, xx: bool = False, keepttl: bool = False, ttl=None, pre=None, ver=None)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -347,6 +382,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#quickstart" class="md-nav__link">
+    Quickstart
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#setup" class="md-nav__link">
     Setup
   </a>
@@ -355,28 +397,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#add-prefixes-to-your-keys" class="md-nav__link">
-    Add prefixes to your keys
-  </a>
-  
-    <nav class="md-nav" aria-label="Add prefixes to your keys">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#key-prefixing" class="md-nav__link">
-    Key prefixing
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#quickstart" class="md-nav__link">
-    Quickstart
+  <a href="#key-prefixes" class="md-nav__link">
+    Key Prefixes
   </a>
   
 </li>
@@ -387,9 +409,57 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#methods" class="md-nav__link">
-    Methods
+  <a href="#redis-api" class="md-nav__link">
+    Redis API
   </a>
+  
+    <nav class="md-nav" aria-label="Redis API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getkey-str-default-optionalany-prenone-vernone" class="md-nav__link">
+    get(key: str, default: Optional[Any] = '', pre=None, ver=None)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hget" class="md-nav__link">
+    hget()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hmget" class="md-nav__link">
+    hmget()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hmset" class="md-nav__link">
+    hmset()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hset" class="md-nav__link">
+    hset()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setkey-str-val-v-xx-bool-false-keepttl-bool-false-ttlnone-prenone-vernone" class="md-nav__link">
+    set(key: str, val: V, xx: bool = False, keepttl: bool = False, ttl=None, pre=None, ver=None)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -407,80 +477,101 @@
                 
                 
                 <h1 id="redis">Redis</h1>
+<h2 id="quickstart">Quickstart</h2>
+<p>Get yourself up and running</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">limeutils</span> <span class="kn">import</span> <span class="n">redis</span>
+
+<span class="c1"># Create the redis object</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">redis</span><span class="o">.</span><span class="n">Redis</span><span class="p">(</span><span class="n">pre</span><span class="o">=</span><span class="s1">&#39;FOOBAR&#39;</span><span class="p">,</span> <span class="n">ver</span><span class="o">=</span><span class="s1">&#39;v1&#39;</span><span class="p">)</span>
+
+<span class="c1"># Save a key</span>
+<span class="n">r</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;samplekey&#39;</span><span class="p">,</span> <span class="s1">&#39;hello there&#39;</span><span class="p">)</span>
+
+<span class="c1"># Read the key</span>
+<span class="n">message</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;samplekey&#39;</span><span class="p">)</span>
+
+<span class="c1"># Save a hash</span>
+<span class="n">r</span><span class="o">.</span><span class="n">hset</span><span class="p">(</span><span class="s1">&#39;user-123&#39;</span><span class="p">,</span> <span class="s1">&#39;username&#39;</span><span class="p">,</span> <span class="s1">&#39;jimisawesome&#39;</span><span class="p">)</span>
+
+<span class="c1"># Read the hash</span>
+<span class="n">username</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">hget</span><span class="p">(</span><span class="s1">&#39;user-123&#39;</span><span class="p">,</span> <span class="s1">&#39;username&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>View the <a href="#api">API</a> below for complete details including how to save multiple fields in one go with
+ <code>hmget()</code>.</p>
 <h2 id="setup">Setup</h2>
-<p>The <code>Redis</code> class uses the official <a href="https://pypi.org/project/redis/">redis</a> package to implement
+<p>The <code>Redis()</code> class uses the official <a href="https://pypi.org/project/redis/">redis</a> package to implement
  its methods. This package returns all data in bytes. Limeutils acts as
  a wrapper silently parsing all this data into valid python data types you can use in your code.</p>
-<pre><code class="language-python">from limeutils import redis
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">limeutils</span> <span class="kn">import</span> <span class="n">redis</span>
 
-# Create the redis object
-r = redis.Redis(pre='FOOBAR', ver='v1')
-</code></pre>
-<h3 id="add-prefixes-to-your-keys">Add prefixes to your keys</h3>
-<p>Limeutils lets you add prefixes to your keys automatically (recommended) allowing for better key
+<span class="c1"># Create the redis object</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">redis</span><span class="o">.</span><span class="n">Redis</span><span class="p">()</span>
+</code></pre></div>
+
+<p>With connection information</p>
+<div class="codehilite"><pre><span></span><code><span class="n">r</span> <span class="o">=</span> <span class="n">redis</span><span class="o">.</span><span class="n">Redis</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">2468</span><span class="p">,</span> <span class="n">db</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div>
+
+<p>If you don't include any connection information then the redis defaults will be used.</p>
+<h3 id="key-prefixes">Key Prefixes</h3>
+<p>Limeutils lets you add prefixes to your keys allowing for better key
  management.</p>
-<pre><code class="language-python">r = redis.Redis(pre='FOOBAR', ver='v1')
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="hll"><span class="n">r</span> <span class="o">=</span> <span class="n">redis</span><span class="o">.</span><span class="n">Redis</span><span class="p">(</span><span class="n">pre</span><span class="o">=</span><span class="s1">&#39;FOOBAR&#39;</span><span class="p">,</span> <span class="n">ver</span><span class="o">=</span><span class="s1">&#39;v1&#39;</span><span class="p">)</span>
+</span></code></pre></div>
+
 <ul>
 <li><code>pre</code>: Prefix for your project. Defaults to an empty string.</li>
 <li><code>ver</code>: Version for your key. Defaults to an empty string.</li>
 </ul>
-<p>This makes sure you won't overrite any other keys from other projects.</p>
-<pre><code>!!! note
-    eonutheoatnuhent
-</code></pre>
-<p>Keys you create in your code are automatically saved in a <strong>prefix:version:key</strong> format. Creating
- a key
- named <code>user</code> in your code is saved as <code>FOOBAR:v1:user</code> in redis. When you need to use this key you only need
- to use the name <code>user</code> and the <code>r</code> object prepends the prefix and version used.  </p>
-<p>You can also add details about your connection</p>
-<p>Adding redis connection info:</p>
-<pre><code class="language-python">r = redis.Redis(host='localhost', port=2468, db=0, pre='FOOBAR', ver='v1')
-</code></pre>
-<h4 id="key-prefixing">Key prefixing</h4>
-<p>It's recommended to use key prefixing in redis so including the <code>pre</code> and <code>ver</code> attributes does this for you. For example, the key <code>user-123</code> is saved as <strong>FOOBAR:v1:user-123</strong> but in your code you just type in <code>user-123</code> and not the prefixed version.</p>
-<p>If you don't want to add any prefixing to your keys then just don't add them when instantiating your object: <code>r = redis.Redis()</code>.</p>
-<h3 id="quickstart">Quickstart</h3>
-<pre><code class="language-python">from limeutils import redis
+<p>This makes sure you won't overrite any keys from other projects.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Keys you create are automatically saved in the <strong>prefix:version:key</strong> format (if
+ you used the arguments <code>pre</code>, <code>ver</code>, or both).
+Creating a key named <code>user</code> in python is saved as <code>FOOBAR:v1:user</code> in redis. When you need
+ to use this key you only need to use the name <code>user</code> and the <code>r</code> object prepends the prefix
+  and version for you.</p>
+<p>If you don't want to use any prefixing just don't use the <code>pre</code> and <code>ver</code> arguments when
+   creating the object. This would mean your original key of <code>user</code> in your code would be
+    saved also as <code>user</code> in redis. </p>
+</div>
+<p>If you don't want to use prefixing in your keys then just don't add them when instantiating your
+ object: <code>r = redis.Redis()</code>.</p>
+<p><a id="api"></a></p>
+<h2 id="redis-api">Redis API</h2>
+<p>All methods are accessible from an instance of the <code>Redis</code> class. These are all validated using
+ <a href="https://pydantic-docs.helpmanual.io/">Pydantic</a>.</p>
+<p>Below are some custom data types used to make the code shorter</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
 
-# Create the redis object
-r = redis.Redis(pre='FOOBAR', ver='v1')
+<span class="c1"># Custom data types</span>
+<span class="n">LT</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">]</span>
+<span class="n">V</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">]</span>
+</code></pre></div>
 
-# Save a key
-r.set('samplekey', 'hello there')
-
-# Read the key
-message = r.get('samplekey')
-
-# Save a hash
-r.hset('user-123', 'username', 'jimisthebomb')
-
-# Read the hash
-username = r.hget('user-123', 'username')
-</code></pre>
-<h2 id="methods">Methods</h2>
-<p>All methods are accessible from an instance of the <code>Redis</code> class. All methods are validated using
- the <code>pydantic</code> package.</p>
-<p>Below are some custom data types used to make the code shorter.
- ```python
-from typing import Union</p>
-<h1 id="custom-data-types">Custom data types</h1>
-<p>LT = Union[list, tuple]
-V = Union[str, int, float, bytes]
-<code>``
-The</code>LT<code>and</code>V` data types are used throughout this package.</p>
-<p><code>get()</code>
-Something</p>
-<p><code>hget()</code>
-Something</p>
-<p><code>hmget()</code>
-Something</p>
-<p><code>hmset()</code>
-Something</p>
-<p><code>hset()</code>
-Something</p>
-<p><code>set(key: str, val: V, xx: bool = False, keepttl: bool = False, ttl=None, pre=None, ver=None
-)</code>{:.python}</p>
+<p>The <code>LT</code> and <code>V</code> data types are used throughout this package.</p>
+<h4 id="getkey-str-default-optionalany-prenone-vernone"><code>get(key: str, default: Optional[Any] = '', pre=None, ver=None)</code></h4>
+<dl>
+<dd>Get the value of a non-hash key.</dd>
+</dl>
+<h4 id="hget"><code>hget()</code></h4>
+<dl>
+<dd>To follow</dd>
+</dl>
+<h4 id="hmget"><code>hmget()</code></h4>
+<dl>
+<dd>To follow</dd>
+</dl>
+<h4 id="hmset"><code>hmset()</code></h4>
+<dl>
+<dd>To follow</dd>
+</dl>
+<h4 id="hset"><code>hset()</code></h4>
+<dl>
+<dd>To follow</dd>
+</dl>
+<h4 id="setkey-str-val-v-xx-bool-false-keepttl-bool-false-ttlnone-prenone-vernone"><code>set(key: str, val: V, xx: bool = False, keepttl: bool = False, ttl=None, pre=None, ver=None)</code></h4>
 <ul>
 <li><code>key</code>: Key name</li>
 <li><code>val</code>: Key value</li>
