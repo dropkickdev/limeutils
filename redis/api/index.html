@@ -40,6 +40,8 @@
     
     
     
+      <link rel="stylesheet" href="../../assets/styles.css">
+    
     
       
     
@@ -488,12 +490,44 @@ Creating a key named <code>user</code> in python is saved as <code>FOOBAR:v1:use
 <li><code>ver</code>: Custom version. Overrides the version set when you created the object.</li>
 </ul>
 </dd>
-<dt><code>hget()</code></dt>
-<dd>To follow</dd>
-<dt><code>hmget()</code></dt>
-<dd>To follow</dd>
-<dt><code>hmset()</code></dt>
-<dd>To follow</dd>
+<dt><code>hget(key, field, default='', pre=None, ver=None)</code></dt>
+<dd>Get a single field from a hash key. To set the value of this field use <strong><code>hset()</code></strong> or <strong><code>hmset()</code></strong>. <br>
+<strong>Returns</strong>: <code>Union[str, int, float]</code></dd>
+<dd>
+<ul>
+<li><code>key</code>: Key name</li>
+<li><code>field</code>: Field name</li>
+<li><code>default</code>: Use this value if field doesn't exist</li>
+<li><code>pre</code>: Custom prefix. Overrides the prefix set when you created the object.</li>
+<li><code>ver</code>: Custom version. Overrides the version set when you created the object.</li>
+</ul>
+</dd>
+<dt><code>hmget(key: str, fields=None, pre=None, ver=None)</code></dt>
+<dd>Get multiple fields from a hash key. To set the value of these fields use <strong><code>hset()</code></strong> or
+ <strong><code>hmset()</code></strong>. <br>
+<strong>Returns</strong>: <code>dict</code></dd>
+<dd>
+<ul>
+<li><code>key</code>: Key name</li>
+<li><code>fields</code>: List/Tuple of field names</li>
+<li><code>pre</code>: Custom prefix. Overrides the prefix set when you created the object.</li>
+<li><code>ver</code>: Custom version. Overrides the version set when you created the object.</li>
+</ul>
+</dd>
+<dt><code>hmset(key, mapping, ttl=None, pre=None, ver=None)</code></dt>
+<dd>Add multiple fields to a hash key. If the key doesn't exist it is created. Validation done by the
+ pydantic model <strong>Hmset</strong>.
+<br>
+<strong>Returns</strong>: <code>int</code> Number of fields set. Updating an existing field counts as 0 not 1.</dd>
+<dd>
+<ul>
+<li><code>key</code>: Key name</li>
+<li><code>mapping</code>: Dict of field-val pairs</li>
+<li><code>ttl</code>: TTL for this key. Can be in <code>int</code> seconds or a <code>timedelta</code> object.</li>
+<li><code>pre</code>: Custom prefix. Overrides the prefix set when you created the object.</li>
+<li><code>ver</code>: Custom version. Overrides the version set when you created the object.</li>
+</ul>
+</dd>
 <dt><code>hset(key, field, val='', mapping=None, ttl=None, pre=None, ver=None)</code></dt>
 <dd>Add a single field to a hash key. If the key doesn't exist it is created. <br>
 <strong>Returns</strong>: <code>int</code> Number of fields set. Updating an existing field counts as 0 not 1.</dd>
@@ -501,7 +535,7 @@ Creating a key named <code>user</code> in python is saved as <code>FOOBAR:v1:use
 <ul>
 <li><code>key</code>: Key name</li>
 <li><code>field</code>: Field name</li>
-<li><code>val</code>: Key value. See <a href="#custom-data-types">custom data type</a>.</li>
+<li><code>val</code>: Key value</li>
 <li><code>mapping</code>: Dict of field-val pairs</li>
 <li><code>ttl</code>: TTL for this key. Can be in <code>int</code> seconds or a <code>timedelta</code> object.</li>
 <li><code>pre</code>: Custom prefix. Overrides the prefix set when you created the object.</li>
@@ -514,7 +548,7 @@ Creating a key named <code>user</code> in python is saved as <code>FOOBAR:v1:use
 <dd>
 <ul>
 <li><code>key</code>: Key name</li>
-<li><code>val</code>: Key value. See <a href="#custom-data-types">custom data type</a>.</li>
+<li><code>val</code>: Key value</li>
 <li><code>xx</code>: Set to val only if key already exists</li>
 <li><code>keepttl</code>: Retain the time to live associated with the key.</li>
 <li><code>ttl</code>: TTL for this key. Can be in <code>int</code> seconds or a <code>timedelta</code> object.</li>
@@ -523,7 +557,6 @@ Creating a key named <code>user</code> in python is saved as <code>FOOBAR:v1:use
 </ul>
 </dd>
 </dl>
-<p><code>hget()</code></p>
                 
               
               

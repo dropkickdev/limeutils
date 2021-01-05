@@ -40,6 +40,8 @@
     
     
     
+      <link rel="stylesheet" href="../../assets/styles.css">
+    
     
       
     
@@ -272,9 +274,45 @@
       
     
     
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Models
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
     <a href="./" class="md-nav__link md-nav__link--active">
       Models
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#validators" class="md-nav__link">
+    Validators
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#models" class="md-nav__link">
+    Models
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -315,6 +353,28 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#validators" class="md-nav__link">
+    Validators
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#models" class="md-nav__link">
+    Models
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -337,6 +397,80 @@
 </code></pre></div>
 
 <p>The <code>LT</code> and <code>V</code> data types are used throughout this package.</p>
+<h2 id="validators">Validators</h2>
+<p><code>nonone</code></p>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">nonone</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Validator: Convert None to empty string.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">val</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;&#39;</span>
+    <span class="k">return</span> <span class="n">val</span>
+</code></pre></div>
+
+<p><code>nonone_mapping</code></p>
+<div class="codehilite"><pre><span></span><code><span class="hll"><span class="k">def</span> <span class="nf">nonone_mapping</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
+</span>    <span class="sd">&quot;&quot;&quot;Validator: Convert None to empty string.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">val</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">val</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">val</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">val</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">v</span>
+    <span class="k">return</span> <span class="n">val</span>
+</code></pre></div>
+
+<h2 id="models">Models</h2>
+<p><code>StarterModel</code></p>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">StarterModel</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">key</span><span class="p">:</span> <span class="n">V</span>
+    <span class="n">pre</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">V</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">ver</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">V</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">ttl</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ge</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div>
+
+<p><code>Get</code></p>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">Get</span><span class="p">(</span><span class="n">StarterModel</span><span class="p">):</span>
+    <span class="n">default</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+</code></pre></div>
+
+<p><code>Hget</code></p>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">Hget</span><span class="p">(</span><span class="n">StarterModel</span><span class="p">):</span>
+    <span class="n">default</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+</code></pre></div>
+
+<p><code>Hmget</code></p>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">Hmget</span><span class="p">(</span><span class="n">StarterModel</span><span class="p">):</span>
+    <span class="n">fields_</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">LT</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+<p><code>Hmset</code></p>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">Hmset</span><span class="p">(</span><span class="n">StarterModel</span><span class="p">):</span>
+    <span class="n">mapping</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="n">_clean_mapping</span> <span class="o">=</span> <span class="n">validator</span><span class="p">(</span><span class="s1">&#39;mapping&#39;</span><span class="p">,</span> <span class="n">allow_reuse</span><span class="o">=</span><span class="kc">True</span><span class="p">)(</span><span class="n">nonone_mapping</span><span class="p">)</span>
+</code></pre></div>
+
+<p><code>Hset</code></p>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">Hset</span><span class="p">(</span><span class="n">StarterModel</span><span class="p">):</span>
+    <span class="n">field</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">val</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">V</span><span class="p">]</span>
+    <span class="n">mapping</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="n">_clean_val</span> <span class="o">=</span> <span class="n">validator</span><span class="p">(</span><span class="s1">&#39;val&#39;</span><span class="p">,</span> <span class="n">allow_reuse</span><span class="o">=</span><span class="kc">True</span><span class="p">)(</span><span class="n">nonone</span><span class="p">)</span>
+    <span class="n">_clean_mapping</span> <span class="o">=</span> <span class="n">validator</span><span class="p">(</span><span class="s1">&#39;mapping&#39;</span><span class="p">,</span> <span class="n">allow_reuse</span><span class="o">=</span><span class="kc">True</span><span class="p">)(</span><span class="n">nonone_mapping</span><span class="p">)</span>
+</code></pre></div>
+
+<p><code>Set</code></p>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">Set</span><span class="p">(</span><span class="n">StarterModel</span><span class="p">):</span>
+    <span class="n">val</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">V</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">xx</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">keepttl</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="n">_clean_val</span> <span class="o">=</span> <span class="n">validator</span><span class="p">(</span><span class="s1">&#39;val&#39;</span><span class="p">,</span> <span class="n">allow_reuse</span><span class="o">=</span><span class="kc">True</span><span class="p">)(</span><span class="n">nonone</span><span class="p">)</span>
+
+
+    <span class="nd">@validator</span><span class="p">(</span><span class="s1">&#39;xx&#39;</span><span class="p">,</span> <span class="s1">&#39;keepttl&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">boolonly</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+</code></pre></div>
                 
               
               
