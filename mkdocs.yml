@@ -2,8 +2,8 @@ site_name: Limeutils
 theme:
   name: material
   palette:
-    primary: green
-    accent: green
+    primary: lime
+    accent: lime
   icon:
     repo: fontawesome/brands/github-alt
 

@@ -15,6 +15,7 @@ class Redis:
         self.pre = kwargs.pop('pre', '')
         self.ver = kwargs.pop('ver', '')
         self.r = reds.Redis(**kwargs)
+        self.pipe = self.r.pipeline()
     
     
     def _cleankey(self, data: Union[models.StarterModel, BaseModel]) -> str:
@@ -48,9 +49,10 @@ class Redis:
         key = self._cleankey(data)
         ttl = data.ttl if data.ttl is not None else self.ttl
         
-        ret = self.r.set(key, data.val, xx=data.xx, keepttl=data.keepttl)
-        self.r.expire(key, ttl)
-        return ret
+        self.pipe.set(key, data.val, xx=data.xx, keepttl=data.keepttl)
+        self.pipe.expire(key, ttl)
+        [set_ret, _] = self.pipe.execute()
+        return set_ret
     
     
     def hset(self, key: str, field: str, val: Optional[V] = '', mapping: Optional[dict] = None,
@@ -71,9 +73,10 @@ class Redis:
         key = self._cleankey(data)
         ttl = data.ttl if data.ttl is not None else self.ttl
         
-        ret = self.r.hset(key, data.field, data.val, data.mapping)
-        self.r.expire(key, ttl)
-        return ret
+        self.pipe.hset(key, data.field, data.val, data.mapping)
+        self.pipe.expire(key, ttl)
+        [hset_ret, _] = self.pipe.execute()
+        return hset_ret
     
 
     def hmset(self, key: str, mapping: dict, ttl=None, pre=None, ver=None) -> int:
@@ -93,9 +96,10 @@ class Redis:
         key = self._cleankey(data)
         ttl = data.ttl if data.ttl is not None else self.ttl
 
-        ret = self.r.hset(key, mapping=data.mapping)
-        self.r.expire(key, ttl)
-        return ret
+        self.pipe.hset(key, mapping=data.mapping)
+        self.pipe.expire(key, ttl)
+        [hmset_ret, _] = self.pipe.execute()
+        return hmset_ret
     
     
     def get(self, key: str, default: Optional[Any] = '', pre=None, ver=None) -> V:
