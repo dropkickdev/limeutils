@@ -9,7 +9,7 @@ Quickstart
 ----------
 Get yourself up and running
 
-```python hl_lines="1-2"
+```python
 {!examples/redis01.py!}
 
 ```
@@ -71,17 +71,37 @@ _______________________________________________________________________
 
 : - `key`: Key name
 - `default`: Use this value if key doesn't exist
-- `pre`: Custom prefix. Overrides the prefix set when you created the object.
-- `ver`: Custom version. Overrides the version set when you created the object.
+{!partials/prever!}
 
-`hget()`
-: To follow
+`hget(key, field, default='', pre=None, ver=None)`
+: Get a single field from a hash key. To set the value of this field use **`hset()`** or **`hmset()
+`**. <br>
+**Returns**: `Union[str, int, float]`
 
-`hmget()`
-: To follow
+: - `key`: Key name
+- `field`: Field name
+- `default`: Use this value if field doesn't exist
+{!partials/prever!}
 
-`hmset()`
-: To follow
+`hmget(key: str, fields=None, pre=None, ver=None)`
+: Get multiple fields from a hash key. To set the value of these fields use **`hset()`** or
+ **`hmset()
+`**. <br>
+**Returns**: `dict`
+
+: - `key`: Key name
+- `fields`: List/Tuple of field names
+{!partials/prever!}
+
+`hmset(key, mapping, ttl=None, pre=None, ver=None)`
+: Add multiple fields to a hash key. If the key doesn't exist it is created. Validation done by the
+ pydantic model **Hmset**.
+<br>
+**Returns**: `int` Number of fields set. Updating an existing field counts as 0 not 1.
+ 
+: - `key`: Key name
+- `mapping`: Dict of field-val pairs
+{!partials/ttlprever!}
 
 `hset(key, field, val='', mapping=None, ttl=None, pre=None, ver=None)`
 : Add a single field to a hash key. If the key doesn't exist it is created. <br>
@@ -89,7 +109,7 @@ _______________________________________________________________________
  
 : - `key`: Key name
 - `field`: Field name
-- `val`: Key value. See [custom data type](#custom-data-types).
+- `val`: Key value
 - `mapping`: Dict of field-val pairs
 {!partials/ttlprever!}
 
@@ -98,10 +118,7 @@ _______________________________________________________________________
 **Returns**: `int` Number of keys created. Updated keys aren't counted.
 
 : - `key`: Key name
-- `val`: Key value. See [custom data type](#custom-data-types).
+- `val`: Key value
 - `xx`: Set to val only if key already exists
 - `keepttl`: Retain the time to live associated with the key.
 {!partials/ttlprever!}
-
-
-`hget()`

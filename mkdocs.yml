@@ -20,6 +20,8 @@ nav:
   - changelog.md
 
 markdown_extensions:
+#  - toc:
+#      permalink: true
   - markdown.extensions.codehilite:
       guess_lang: false
   - markdown_include.include:
@@ -27,3 +29,6 @@ markdown_extensions:
   - admonition
   - codehilite
   - extra
+
+extra_css:
+  - assets/styles.css

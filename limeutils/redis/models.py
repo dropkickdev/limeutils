@@ -41,11 +41,8 @@ class Hset(StarterModel):
     val: Optional[V]
     mapping: Optional[dict] = None
 
+    _clean_val = validator('val', allow_reuse=True)(nonone)
     _clean_mapping = validator('mapping', allow_reuse=True)(nonone_mapping)
-    
-    @validator('val')
-    def nonetostr(cls, val):
-        return nonone(val)
     
     
 class Hmset(StarterModel):

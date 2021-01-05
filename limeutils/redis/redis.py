@@ -118,7 +118,8 @@ class Redis:
         val = byte_conv(val)
         return val if val or val == 0 else default
     
-
+    
+    # TODO: Add defaults
     def hget(self, key: str, field: str, default: Optional[Any] = '',
              pre=None, ver=None) -> V:
         """
@@ -137,7 +138,8 @@ class Redis:
         val = byte_conv(val)
         return val if val or val == 0 else default
 
-
+    
+    # TODO: Add defaults
     def hmget(self, key: str, fields: Optional[LT] = None, pre=None, ver=None) -> dict:
         """
         Get multiple hash values form redis using HMGET
