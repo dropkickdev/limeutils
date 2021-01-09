@@ -16,6 +16,7 @@ class Redis:
         self.ver = kwargs.pop('ver', '')
         self.r = reds.Redis(**kwargs)
         self.pipe = self.r.pipeline()
+        r = self.r
     
     
     def _cleankey(self, data: Union[models.StarterModel, BaseModel]) -> str:
@@ -182,8 +183,8 @@ class Redis:
         count = self.r.hdel(key, *data.fields_)
         return count
     
-    
-    def delete(self, key: Union[str, LT], pre=None, ver=None) -> int:
+
+    def delete(self, key: Union[str, LT], pre=None, ver=None):
         """
         Delete keys.
         :param key: A key or a list of keys
@@ -194,10 +195,8 @@ class Redis:
         data = models.Delete(key=key, pre=pre, ver=ver)
         cleaned = []
         for val in data.key:
-            # key = self._cleankey(val)
-            # cleaned.append(key)
-            pre = data.pre and data.pre or self.pre.strip()
-            ver = data.ver and data.ver or self.ver.strip()
+            pre = data.pre or self.pre.strip()
+            ver = data.ver or self.ver.strip()
             list_ = [pre, ver, val]
             list_ = list(filter(None, list_))
             key = ":".join(list_)
