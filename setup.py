@@ -5,15 +5,16 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="limeutils", # Replace with your own username
-    version="0.1.9",
-    author="enchance",
+    version="0.1.10",
+    author="dropickdev",
     author_email="enchance@gmail.com",
-    description="A collection of my utility functions",
+    description="Utility functions for python. Functions were made and tested in FastAPI but are "
+                "suitable for any python project.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/enchance/limeutils.git",
+    url="https://github.com/dropkickdev/limeutils.git",
     packages=setuptools.find_packages(),
-    install_requires=['redis', 'pydantic', 'limeutils'],
+    install_requires=['redis', 'pydantic'],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
