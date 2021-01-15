@@ -30,6 +30,7 @@ def nonone_mapping(val):
 
 
 class StarterModel(BaseModel):
+    """Shared fields"""
     key: V
     pre: Optional[V] = ''
     ver: Optional[V] = ''
@@ -37,6 +38,7 @@ class StarterModel(BaseModel):
     
 
 class Hset(StarterModel):
+    """Pydantic model for the hset() method"""
     field: str
     val: Optional[V]
     mapping: Optional[dict] = None
@@ -46,12 +48,14 @@ class Hset(StarterModel):
     
     
 class Hmset(StarterModel):
+    """Pydantic model for the hmset() method"""
     mapping: Optional[dict] = None
     
     _clean_mapping = validator('mapping', allow_reuse=True)(nonone_mapping)
 
 
 class Set(StarterModel):
+    """Pydantic model for the set() method"""
     val: Optional[V] = ''
     xx: bool = False
     keepttl: bool = False
@@ -65,24 +69,29 @@ class Set(StarterModel):
     
 
 class Get(StarterModel):
+    """Pydantic model for the get() method"""
     default: Optional[Any] = ''
 
 
 class Hget(StarterModel):
+    """Pydantic model for the get() method"""
     default: Optional[Any] = ''
 
     
 class Hmget(StarterModel):
+    """Pydantic model for the hmget() method"""
     fields_: Optional[LT] = None
 
 
 class Hdel(StarterModel):
+    """Pydantic model for the hdel() method"""
     fields_: Optional[Union[str, LT]] = None
     
     _clean_fields = validator('fields_', allow_reuse=True)(listmaker)
     
     
 class Delete(BaseModel):
+    """Pydantic model for the delete() method"""
     key: Union[str, LT]
     pre: Optional[V] = ''
     ver: Optional[V] = ''

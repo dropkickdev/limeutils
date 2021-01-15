@@ -28,7 +28,8 @@ def test_parse_str(val, out):
     except out:
         with pytest.raises(out):
             assert utils.parse_str(val)
-    
+            
+            
 param = [('Hey You', ('Hey', 'You')), ('Sir Hey You', ('Sir Hey', 'You')),
          ('Sir Hey You Phd', ('Sir Hey', 'You Phd')), ('Hey delos You', ('Hey', 'delos You')),
          ('Hey san You', ('Hey', 'san You')),

@@ -7,6 +7,9 @@ verify_ssl = true
 twine = "*"
 sphinx = "*"
 pytest = "*"
+interrogate = "*"
+simple-print = "*"
+pytest-print = "*"
 
 [packages]
 redis = "*"
