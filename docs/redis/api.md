@@ -1,5 +1,5 @@
-Redis
-=====
+Redis Utilities
+===============
 
 The `Redis()` class uses the official [redis](https://pypi.org/project/redis/) python package in
  its methods. Limeutils acts as
@@ -14,8 +14,8 @@ Get yourself up and running
 
 ```
 
-Setup
------
+Example
+-------
 
 ```python
 from limeutils import redis
@@ -27,6 +27,9 @@ r = redis.Redis()
 With connection information
 
 ```python
+from limeutils import redis
+
+# Create the redis object
 r = redis.Redis(host='localhost', port=2468, db=0)
 ```
 
@@ -35,7 +38,7 @@ If you don't include any connection information then the redis defaults will be 
 Key Prefixes
 -------------
 Limeutils lets you use prefixes for your keys allowing for better key
- management.
+ management. Just add it when you create your object.
  
 ```python hl_lines="1"
 r = redis.Redis(pre='FOOBAR', ver='v1')
@@ -46,25 +49,19 @@ r = redis.Redis(pre='FOOBAR', ver='v1')
 This makes sure you won't overrite any keys from other projects.
 
 !!! info
-    Keys you create are automatically saved in the **prefix:version:key** format (if
-     you used the arguments `pre`, `ver`, or both).
-    Creating a key named `user` in python is saved as `FOOBAR:v1:user` in redis. But when you need
-     to use this key in your python code you only type the name `user` and the `r` object
-      prepends the
-      prefixes for you.
-      
-      If you don't want to use any prefixing just don't use the `pre` and `ver` arguments when
-       creating the object. This would mean your original key of `user` in pyhon would also be
-        saved as `user` in redis. 
+    Keys are saved as **prefix:version:key** in redis (if you used the arguments `pre`, `ver`, or
+     both). Creating a key named `user` in python is saved as `FOOBAR:v1:user` in redis. But when
+      you need to use this key in python you only type the name `user` and the `r` object
+      prepends the prefixes for you. 
 
 <a id="api"></a>
 
 Redis API
 ----------
+
 All methods are accessible from an instance of the `Redis` class. These are all validated using
  [Pydantic](https://pydantic-docs.helpmanual.io/) models.
  
-_______________________________________________________________________
 `get(key, default='', pre=None, ver=None)`
 : Get the value of a single non-hash key. To set the value of this key use **`set()`**. <br>
 **Returns**: `Union[str, int, float]`
