@@ -18,8 +18,8 @@ def isfloat(val: Union[int, float, str]):
 
 def byte_conv(val: Union[bytes, str]):
     """
-    Coneverts bytes to a python string. This string could later on be parsed into the correct
-    python datatype using parse_str. Used mostly with Redis return values which always return in
+    Converts bytes to a python string. This string could later be parsed into the correct
+    python data type using parse_str(). Used mostly with Redis return values which always return in
     bytes.
     :param val: Bytes string to convert to python string
     :return:    str
@@ -36,21 +36,21 @@ def byte_conv(val: Union[bytes, str]):
     # return val.decode('utf-8')
 
 
-def parse_str(x: str):
+def parse_str(string: str):
     """
     Converts a string to either an int, float, or str depending on its value.
-    :param x:   String to convert
+    :param string:   String to convert
     :return:    int, float, or str
     """
-    if not isinstance(x, str):
+    if not isinstance(string, str):
         raise ValueError('Only valid strings can be parsed.')
     
-    x = x.strip()
-    if x.isdigit():
-        return int(x)
-    elif isfloat(x):
-        return float(x)
-    return x
+    string = string.strip()
+    if string.isdigit():
+        return int(string)
+    elif isfloat(string):
+        return float(string)
+    return string
 
 
 def split_fullname(fullname: str, default: str = '',

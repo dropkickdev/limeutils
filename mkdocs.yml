@@ -7,16 +7,16 @@ theme:
   icon:
     repo: fontawesome/brands/github-alt
 
-repo_name: enchance/limeutils
-repo_url: https://github.com/enchance/limeutils.git
+repo_name: dropkickdev/limeutils
+repo_url: https://github.com/dropkickdev/limeutils.git
 edit_uri: ''
 
 nav:
   - Home: index.md
-  - Utilities: utils.md
   - Redis:
     - Redis API: redis/api.md
     - Models: redis/models.md
+  - Utilities: utils.md
   - changelog.md
 
 markdown_extensions:
@@ -29,6 +29,3 @@ markdown_extensions:
   - admonition
   - codehilite
   - extra
-
-extra_css:
-  - assets/styles.css

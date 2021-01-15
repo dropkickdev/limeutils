@@ -1,21 +1,40 @@
+Overview
+--------
+
+Limeutils is a small collection of classes and methds for dealing with Redis data (which comes in
+ bytes and) and a few other helpful functions. Check out the documentation for information
+ . More classes to be added.
+
+This package uses [Pydantic models][pydantic] to validate its data.
+
 Installation
-----------------------
+------------
 
 ### Install with `pip`
 
-For `pip` users
+This is the recommended way to install Limeutils.
 
 ```
 pip install limeutils
 ```
 
-### Install with `git`
-To follow
+### Install with repo
 
-### Install a fork
-To follow
+```
+pip install git+https://github.com/dropkickdev/limeutils.git@develop#egg=limeutils
+```
+
+### Install with `git clone`
+
+Simply install from the root folder
+
+```
+# This can also be a fork
+git clone https://github.com/dropkickdev/limeutils.git
+
+cd limeutils
+pip install .
+```
 
 
-### Documentation
-
-The documentation can be found in: https://dropkickdev.github.io/limeutils/
+[pydantic]: https://pydantic-docs.helpmanual.io/ 'Pydantic'

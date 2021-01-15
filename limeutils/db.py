@@ -18,7 +18,7 @@ def modstr(instance, attr) -> str:
     return model_str(instance, attr)
 
 
-def classgrabber(class_str: str):
+def classgrabber(dotpath: str):
     """
     Returns the class from a dot path that leads to the class to be imported.
     The class would be ready for use.
@@ -26,10 +26,10 @@ def classgrabber(class_str: str):
         Settings = classgrabber('app.folder.file.Settings')
         # Settings class now ready for use
         myobj = Settings()
-    :param class_str:   A dot path
+    :param dotpath:   A dot path
     :return:            class
     """
-    x = class_str.split('.')
+    x = dotpath.split('.')
     path = '.'.join(x[0:-1])
     models = importlib.import_module(path)
     return getattr(models, x[-1])

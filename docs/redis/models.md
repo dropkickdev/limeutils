@@ -12,31 +12,26 @@ The `LT` and `V` data types are used throughout this package.
 Validators
 ----------
 
-`nonone`
-```python
-def nonone(val):
-    """Validator: Convert None to empty string."""
-    if val is None:
-        return ''
-    return val
-```
+These work behind the scenes for the value of each  key/field and are here for reference purposes.
 
-`nonone_mapping`
-```python hl_lines="1"
-def nonone_mapping(val):
-    """Validator: Convert None to empty string."""
-    if val is None or not val:
-        return None
-    else:
-        for k, v in val.items():
-            val[k] = '' if v is None else v
-    return val
-```
+`listmaker(val)`
+: Converts a `str` to a `list` with one item.
+
+`nonone(val)`
+: Converts a `None` to empty string.
+
+`nonone_mapping(val)`
+: Converts a `None` to empty string for `dict`.
 
 Models
 ------
 
+Pydantic models which validate the data.
+
 `StarterModel`
+
+: Almost all other models have these fields so they were separated.
+
 ```python
 class StarterModel(BaseModel):
     key: V
