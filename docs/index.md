@@ -1,7 +1,7 @@
 Overview
 --------
 
-Limeutils is a small collection of classes and methds for dealing with Redis data (which comes in
+Limeutils is a small collection of classes and methods for dealing with Redis data (which comes in
  bytes and) and a few other helpful functions. Check out the documentation for information
  . More classes to be added.
 

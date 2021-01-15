@@ -63,7 +63,6 @@ Database API
       
 : *Returns*: The class itself which is found at the end of the dot path.
 
-: *Example:*
 ```
 # Import the Settings class from a string
 Settings = classgrabber('app.folder.file.Settings')
