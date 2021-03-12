@@ -15,7 +15,7 @@ class Redis:
         self.pre = kwargs.pop('pre', '')
         self.ver = kwargs.pop('ver', '')
         if 'url' in kwargs:
-            self.conn = reds.Redis.from_url(kwargs.pop('url'))
+            self.conn = reds.Redis.from_url(kwargs.pop('url'), **kwargs)
         else:
             self.conn = reds.Redis(**kwargs)
         self.pipe = self.conn.pipeline()
