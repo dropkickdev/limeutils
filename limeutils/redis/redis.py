@@ -1,6 +1,6 @@
 import redis as reds
 from typing import Optional, Union, Any
-from pydantic import BaseModel
+from pydantic import BaseModel, RedisDsn
 
 from . import models
 from .models import LT, V
@@ -11,12 +11,14 @@ from limeutils import byte_conv
 class Redis:
     ttl = 1209600  # seconds
     
-    def __init__(self, **kwargs):
+    def __init__(self, url: RedisDsn = '', **kwargs):
         self.pre = kwargs.pop('pre', '')
         self.ver = kwargs.pop('ver', '')
-        self.r = reds.Redis(**kwargs)
-        self.pipe = self.r.pipeline()
-        r = self.r
+        if kwargs.get('url', ''):
+            self.conn = reds.Redis.from_url(kwargs.get('url'))
+        else:
+            self.conn = reds.Redis(**kwargs)
+        self.pipe = self.conn.pipeline()
     
     
     def _cleankey(self, data: Union[models.StarterModel, BaseModel]) -> str:
@@ -115,7 +117,7 @@ class Redis:
         data = models.Get(key=key, default=default, pre=pre, ver=ver)
         key = self._cleankey(data)
 
-        val = self.r.get(key)
+        val = self.conn.get(key)
         val = byte_conv(val)
         return val if val or val == 0 else default
     
@@ -135,7 +137,7 @@ class Redis:
         data = models.Hget(key=key, default=default, pre=pre, ver=ver)
         key = self._cleankey(data)
         
-        val = self.r.hget(key, field)
+        val = self.conn.hget(key, field)
         val = byte_conv(val)
         return val if val or val == 0 else default
 
@@ -157,11 +159,11 @@ class Redis:
         key = self._cleankey(data)
 
         if fields is not None:
-            val_list = self.r.hmget(key, data.fields_)
+            val_list = self.conn.hmget(key, data.fields_)
             v = map(lambda x: byte_conv(x), val_list)
             val_dict = dict(zip(fields, v))
         else:
-            val_dict = self.r.hgetall(key)
+            val_dict = self.conn.hgetall(key)
             k = map(lambda x: byte_conv(x), val_dict.keys())
             v = map(lambda x: byte_conv(x), val_dict.values())
             val_dict = dict(zip(k, v))
@@ -180,7 +182,7 @@ class Redis:
         """
         data = models.Hdel(key=key, fields_=fields, pre=pre, ver=ver)
         key = self._cleankey(data)
-        count = self.r.hdel(key, *data.fields_)
+        count = self.conn.hdel(key, *data.fields_)
         return count
     
 
@@ -201,5 +203,5 @@ class Redis:
             list_ = list(filter(None, list_))
             key = ":".join(list_)
             cleaned.append(key)
-        count = self.r.delete(*cleaned)
+        count = self.conn.delete(*cleaned)
         return count

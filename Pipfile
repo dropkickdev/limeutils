@@ -10,6 +10,7 @@ pytest = "*"
 interrogate = "*"
 simple-print = "*"
 pytest-print = "*"
+pytest-sugar = "*"
 
 [packages]
 redis = "*"
