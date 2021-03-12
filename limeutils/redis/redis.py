@@ -14,8 +14,8 @@ class Redis:
     def __init__(self, url: RedisDsn = '', **kwargs):
         self.pre = kwargs.pop('pre', '')
         self.ver = kwargs.pop('ver', '')
-        if kwargs.get('url', ''):
-            self.conn = reds.Redis.from_url(kwargs.get('url'))
+        if 'url' in kwargs:
+            self.conn = reds.Redis.from_url(kwargs.pop('url'))
         else:
             self.conn = reds.Redis(**kwargs)
         self.pipe = self.conn.pipeline()
