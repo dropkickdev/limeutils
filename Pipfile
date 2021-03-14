@@ -11,6 +11,7 @@ interrogate = "*"
 simple-print = "*"
 pytest-print = "*"
 pytest-sugar = "*"
+icecream = "*"
 
 [packages]
 redis = "*"

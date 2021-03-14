@@ -1,6 +1,7 @@
 import redis as reds
 from typing import Optional, Union, Any
 from pydantic import BaseModel, RedisDsn
+from icecream import ic
 
 from . import models
 from .models import LT, V
@@ -27,8 +28,8 @@ class Redis:
         :param data: Contains the pre and ver data
         :return: Completed key
         """
-        pre = data.pre and data.pre or self.pre.strip()
-        ver = data.ver and data.ver or self.ver.strip()
+        pre = data.pre or self.pre.strip()
+        ver = data.ver or self.ver.strip()
 
         list_ = [pre, ver, data.key]
         list_ = list(filter(None, list_))
