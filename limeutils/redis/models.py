@@ -2,7 +2,7 @@ from typing import Optional, Union, Any
 from pydantic import BaseModel, Field, validator
 
 
-LT = Union[list, tuple]
+LIST = Union[list, tuple, set]
 V = Union[str, int, float, bytes]
 
 
@@ -34,7 +34,7 @@ class StarterModel(BaseModel):
     key: V
     pre: Optional[V] = ''
     ver: Optional[V] = ''
-    ttl: Optional[int] = Field(0, ge=0)
+    ttl: Optional[int] = Field(-1, ge=0)
     
 
 class Hset(StarterModel):
@@ -80,19 +80,19 @@ class Hget(StarterModel):
     
 class Hmget(StarterModel):
     """Pydantic model for the hmget() method"""
-    fields_: Optional[LT] = None
+    fields_: Optional[LIST] = None
 
 
 class Hdel(StarterModel):
     """Pydantic model for the hdel() method"""
-    fields_: Optional[Union[str, LT]] = None
+    fields_: Optional[Union[str, LIST]] = None
     
     _clean_fields = validator('fields_', allow_reuse=True)(listmaker)
     
     
 class Delete(BaseModel):
     """Pydantic model for the delete() method"""
-    key: Union[str, LT]
+    key: Union[str, LIST]
     pre: Optional[V] = ''
     ver: Optional[V] = ''
 

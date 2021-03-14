@@ -4,17 +4,16 @@ from pydantic import BaseModel, RedisDsn
 from icecream import ic
 
 from . import models
-from .models import LT, V
+from .models import LIST, V
 from limeutils import byte_conv
 
 
 
 class Redis:
-    ttl = 1209600  # seconds
-    
     def __init__(self, url: RedisDsn = '', **kwargs):
         self.pre = kwargs.pop('pre', '')
         self.ver = kwargs.pop('ver', '')
+        self.ttl = kwargs.pop('ttl', -1)
         if 'url' in kwargs:
             self.conn = reds.Redis.from_url(kwargs.pop('url'), **kwargs)
         else:
@@ -22,7 +21,7 @@ class Redis:
         self.pipe = self.conn.pipeline()
     
     
-    def _cleankey(self, data: Union[models.StarterModel, BaseModel]) -> str:
+    def cleankey(self, data: Union[models.StarterModel, BaseModel]) -> str:
         """
         Create the final key name with prefix and/or version
         :param data: Contains the pre and ver data
@@ -50,7 +49,7 @@ class Redis:
         :return:        True on success
         """
         data = models.Set(key=key, val=val, xx=xx, keepttl=keepttl, ttl=ttl, pre=pre, ver=ver)
-        key = self._cleankey(data)
+        key = self.cleankey(data)
         ttl = data.ttl if data.ttl is not None else self.ttl
         
         self.pipe.set(key, data.val, xx=data.xx, keepttl=data.keepttl)
@@ -74,7 +73,7 @@ class Redis:
         """
         data = models.Hset(key=key, field=field, val=val, mapping=mapping,
                            ttl=ttl, pre=pre, ver=ver)
-        key = self._cleankey(data)
+        key = self.cleankey(data)
         ttl = data.ttl if data.ttl is not None else self.ttl
         
         self.pipe.hset(key, data.field, data.val, data.mapping)
@@ -97,7 +96,7 @@ class Redis:
             return 0
             
         data = models.Hmset(key=key, mapping=mapping, ttl=ttl, pre=pre, ver=ver)
-        key = self._cleankey(data)
+        key = self.cleankey(data)
         ttl = data.ttl if data.ttl is not None else self.ttl
 
         self.pipe.hset(key, mapping=data.mapping)
@@ -116,7 +115,7 @@ class Redis:
         :return:        Parsed string
         """
         data = models.Get(key=key, default=default, pre=pre, ver=ver)
-        key = self._cleankey(data)
+        key = self.cleankey(data)
 
         val = self.conn.get(key)
         val = byte_conv(val)
@@ -136,7 +135,7 @@ class Redis:
         :return:        Parsed string
         """
         data = models.Hget(key=key, default=default, pre=pre, ver=ver)
-        key = self._cleankey(data)
+        key = self.cleankey(data)
         
         val = self.conn.hget(key, field)
         val = byte_conv(val)
@@ -144,7 +143,7 @@ class Redis:
 
     
     # TODO: Add defaults
-    def hmget(self, key: str, fields: Optional[LT] = None, pre=None, ver=None) -> dict:
+    def hmget(self, key: str, fields: Optional[LIST] = None, pre=None, ver=None) -> dict:
         """
         Get multiple hash values form redis using HMGET
         :param key:     Hash key name
@@ -157,7 +156,7 @@ class Redis:
             return {}
         
         data = models.Hmget(key=key, fields_=fields, pre=pre, ver=ver)
-        key = self._cleankey(data)
+        key = self.cleankey(data)
 
         if fields is not None:
             val_list = self.conn.hmget(key, data.fields_)
@@ -171,7 +170,7 @@ class Redis:
         return val_dict
 
 
-    def hdel(self, key: str, fields: Optional[Union[str, LT]] = None, pre=None, ver=None) \
+    def hdel(self, key: str, fields: Optional[Union[str, LIST]] = None, pre=None, ver=None) \
             -> int:
         """
         Delete a field from a hash key.
@@ -182,12 +181,12 @@ class Redis:
         :return:        Number of fields deleted
         """
         data = models.Hdel(key=key, fields_=fields, pre=pre, ver=ver)
-        key = self._cleankey(data)
+        key = self.cleankey(data)
         count = self.conn.hdel(key, *data.fields_)
         return count
     
 
-    def delete(self, key: Union[str, LT], pre=None, ver=None):
+    def delete(self, key: Union[str, LIST], pre=None, ver=None):
         """
         Delete keys.
         :param key: A key or a list of keys
