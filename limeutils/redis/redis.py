@@ -1,27 +1,22 @@
 import redis as reds
 from typing import Optional, Union, Any
-from pydantic import BaseModel, RedisDsn
-from icecream import ic
+from pydantic import BaseModel
 
 from . import models
-from .models import LIST, V
+from .models import LIST, V, StarterModel
 from limeutils import byte_conv
 
 
 
 class Redis:
-    def __init__(self, url: RedisDsn = '', **kwargs):
+    def __init__(self, **kwargs):
         self.pre = kwargs.pop('pre', '')
         self.ver = kwargs.pop('ver', '')
         self.ttl = kwargs.pop('ttl', -1)
-        if 'url' in kwargs:
-            self.conn = reds.Redis.from_url(kwargs.pop('url'), **kwargs)
-        else:
-            self.conn = reds.Redis(**kwargs)
+        self.conn = reds.Redis(**kwargs)
         self.pipe = self.conn.pipeline()
-    
-    
-    def cleankey(self, data: Union[models.StarterModel, BaseModel]) -> str:
+        
+    def cleankey(self, data: Union[StarterModel, BaseModel]) -> str:
         """
         Create the final key name with prefix and/or version
         :param data: Contains the pre and ver data

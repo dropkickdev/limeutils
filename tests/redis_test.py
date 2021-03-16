@@ -1,49 +1,8 @@
 import unittest, pytest, redis as mainredis
 from limeutils import Redis
+from icecream import ic
+from limeutils.redis.models import StarterModel
 
-
-@pytest.fixture(scope='session', autouse=True)
-def delete_keys(r):
-    # print('FOO')
-    yield
-    r.delete(['football', 'foobar', 'mustard', 'abra', 'sam', 'rrr', 'lll', 'qqq', 'www'])
-    # print('BAR')
-    
-@pytest.fixture(scope='session')
-def r():
-    r = Redis(pre='MALICE', ver='v42')
-    data(r)
-
-    return r
-
-@pytest.fixture(scope='session')
-def reds():
-    r = mainredis.Redis()
-    return r
-
-def data(r):
-    # hmget
-    r.hset('abra', 'foo', 'bar')
-    r.hset('abra', 'fed', 23)
-    r.hset('abra', 'meh', 5.2)
-    r.hset('abra', 'nothing', 0)
-    r.hset('abra', 'zoom', None)
-    
-    # hdel
-    r.hmset('mustard', dict(aaa=1, bbb=2, ccc=3, ddd=4, eee=5))
-    
-    # delete
-    r.hset('aaa1', 'abc', 23)
-    r.hset('aaa2', 'abc', 23)
-    r.hset('aaa3', 'abc', 23)
-    r.hset('aaa4', 'abc', 23)
-    r.hset('aaa5', 'abc', 23)
-    
-    # get
-    r.set('qqq', 'abc')
-    r.set('www', '123')
-    r.set('rrr', '')
-    r.set('lll', None)
 
 
 param = [('football', 'team', 'chelsea', 1), ('football', 'team', 'barca', 0),
@@ -88,6 +47,7 @@ def test_delete(r, k, out):
 
 param = ['abc', '123', 'foo', 'foo', '', None]
 @pytest.mark.parametrize('k', param)
+# @pytest.mark.focus
 def test_set(r, k):
     assert r.set('sam', k) is True
 
@@ -95,8 +55,25 @@ def test_set(r, k):
 param = [('qqq', 789, 'abc'), ('www', 789, 123), ('rrr', 789, 789), ('lll', 789, 789),
          ('lll', None, '')]
 @pytest.mark.parametrize('k, v, out', param)
+# @pytest.mark.focus
 def test_get(r, k, v, out):
     if v is not None:
         assert r.get(k, v) == out
     else:
         assert r.get(k) == out
+
+@pytest.mark.focus
+def test_exists(r):
+    # ic(r.fullkey('aaa'))
+    try:
+        # ic(type(r), r)
+        # x = r.fullkey('apples')
+        # ic(x)
+        data = StarterModel(key='apples', pre=r.pre, ver=r.ver)
+        x = r.cleankey(data)
+        ic(x)
+    except Exception as e:
+        ic(e)
+    assert r.conn.exists('MALICE:apples')
+    # r.set('apples', 'to lemons')
+    # assert r.conn.exists()

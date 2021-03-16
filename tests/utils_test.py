@@ -2,15 +2,6 @@ import pytest
 from limeutils import utils, Redis
 
 
-
-
-@pytest.fixture
-def r():
-    x = Redis(pre='MALICE', ver='v42')
-    x.hmset('abra', dict(fed=23, meh=5.2, nothing=0, zoom=None))
-    return x
-
-
 param = [(3, True), (3.0, True), (0, True), ('3.4', True), ('0.4', True), ('0.0', True),
          ('0', True), ('3.0', True), ('3', True), ('abc', False), ('3,344', False),
          ('3,344.5', False), ('3,344.00', False)]
