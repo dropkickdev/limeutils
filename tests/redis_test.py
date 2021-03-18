@@ -69,11 +69,12 @@ def test_exists(r):
         # ic(type(r), r)
         # x = r.fullkey('apples')
         # ic(x)
-        data = StarterModel(key='apples', pre=r.pre, ver=r.ver)
-        x = r.cleankey(data)
-        ic(x)
+        # data = StarterModel(key='apples', pre=r.pre, ver=r.ver)
+        # x = r.cleankey(data)
+        # ic(x)
+        pass
     except Exception as e:
         ic(e)
-    assert r.conn.exists('MALICE:apples')
+    # assert r.conn.exists('MALICE:apples')
     # r.set('apples', 'to lemons')
     # assert r.conn.exists()
