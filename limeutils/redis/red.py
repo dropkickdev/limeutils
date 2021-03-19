@@ -18,7 +18,6 @@ class Red(Redis):
         self.ver = kwargs.pop('ver', '')
         self.ttl = kwargs.pop('ttl', -1)
         super().__init__(*args, **kwargs)
-        # self.pipe = self.pipeline()
 
     
     def formatkey(self, key: str) -> str:
@@ -41,11 +40,11 @@ class Red(Redis):
             return super().set(key, val, **kwargs)
         elif isinstance(val, (list, tuple)):
             direction = kwargs.pop('direction', 'rpush')
-            return getattr(super(), direction)(key, *val)
+            return getattr(self, direction)(key, *val)
         elif isinstance(val, dict):
-            return super().hset(key, mapping=val)
+            return self.hset(key, mapping=val)
         elif isinstance(val, set):
-            return super().sadd(key, *val)
+            return self.sadd(key, *val)
     
     
     def get(self, key: str, start: Optional[int] = 0, end: Optional[int] = -1,
