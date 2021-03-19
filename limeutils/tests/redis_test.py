@@ -44,7 +44,7 @@ def test_list(red):
     assert (red.get('many')) == ['d', 'c', 'a', 'b', 'foo', 'bar', '', 'meh']
 
 
-@pytest.mark.focus
+# @pytest.mark.focus
 def test_hash(red):
     red.delete(red.formatkey('user'))
     red.set('user', dict(age=34, username='enchance', gender='m'))
@@ -54,8 +54,19 @@ def test_hash(red):
 
 
 # @pytest.mark.focus
-# def test_hash(red):
-#     pass
+def test_set_data(red):
+    red.delete(red.formatkey('norepeat'))
+    red.set('norepeat', {'b', 'a', 'c', 'd', 'a'})
+    assert red.get('norepeat') == {'d', 'a', 'b', 'c'}   # unordered of course
+
+
+# @pytest.mark.focus
+def test_exists(red):
+    red.set('one', 432.5)
+    red.set('two', ['b'])
+    red.set('three', dict(age=34, username='enchance', gender='m'))
+    assert red.exists('one')
+    assert red.exists('one', 'two', 'three')
 
 # param = [('football', 'team', 'chelsea', 1), ('football', 'team', 'barca', 0),
 #          ('football', '', '', 1)]

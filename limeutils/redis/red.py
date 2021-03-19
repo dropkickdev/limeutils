@@ -42,10 +42,10 @@ class Red(Redis):
         elif isinstance(val, (list, tuple)):
             direction = kwargs.pop('direction', 'rpush')
             return getattr(super(), direction)(key, *val)
-        elif isinstance(val, set):
-            pass
         elif isinstance(val, dict):
             return super().hset(key, mapping=val)
+        elif isinstance(val, set):
+            return super().sadd(key, *val)
     
     
     def get(self, key: str, start: Optional[int] = 0, end: Optional[int] = -1,
@@ -69,9 +69,14 @@ class Red(Redis):
                 d = {byte_conv(k):byte_conv(v) for k, v in data.items()}
             # ic(d)
             return d
+        elif datatype == 'set':
+            data = super().smembers(key)
+            return {byte_conv(v) for v in data}
             
     
-        
+    def exists(self, *keys):
+        keys = [self.formatkey(i) for i in keys]
+        return super().exists(*keys)
         
         # data = models.Set(key=key, val=val, xx=xx, keepttl=keepttl, ttl=ttl, pre=pre, ver=ver)
         # key = self.formatkey(data)
