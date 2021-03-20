@@ -1,9 +1,10 @@
 Redis Utilities
 ===============
 
-The `Redis()` class uses the official [redis](https://pypi.org/project/redis/) python package in
+The `Red` class uses the official [redis](https://pypi.org/project/redis/) python package in
  its methods. Limeutils acts as
- a wrapper parsing all data it returns into valid python data types.
+ a wrapper simplifying the use of the package and parsing all data it returns into valid python data
+  types.
 
 Quickstart
 ----------
@@ -18,19 +19,33 @@ Example
 -------
 
 ```python
-from limeutils import redis
+from limeutils import Red
 
-# Create the redis object
-r = redis.Redis()
+r = Red()
+
+# Or set a custom config
+CACHE_CONFIG = {
+    'pre':  'FOOBAR',           # Defaults to ''
+    'ver':  'v1',               # Defaults to ''
+    'ttl':  3600 * 24 * 15,     # Defaults to -1
+}
+r = Red(**CACHE_CONFIG)
 ```
 
 With connection information
 
 ```python
-from limeutils import redis
+from limeutils import Red
 
-# Create the redis object
-r = redis.Redis(host='localhost', port=2468, db=0)
+CACHE_CONFIG = {
+    'host': 'localhost',
+    'port': 6379,
+    'db':   0,
+    'pre':  'FOOBAR',
+    'ver':  'v1',
+    'ttl':  3600 * 24 * 15,    
+}
+r = Red(**CACHE_CONFIG)
 ```
 
 If you don't include any connection information then the redis defaults will be used.
