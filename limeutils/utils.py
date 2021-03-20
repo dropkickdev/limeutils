@@ -97,3 +97,15 @@ def split_fullname(fullname: str, default: str = '',
     except ValueError:
         first, last = [*list_, default]
     return first, last
+
+
+def oxford_comma(sequence: Union[list, tuple, set], separator: str = 'or'):
+    sequence = sequence and list(sequence) or []
+    if not sequence:
+        return ''
+    elif len(sequence) == 1:
+        return sequence[0]
+    elif len(sequence) == 2:
+        return '{} {} {}'.format(', '.join(sequence[:-1]), separator, sequence[-1])
+    elif len(sequence) >= 3:
+        return '{}, {} {}'.format(', '.join(sequence[:-1]), separator, sequence[-1])

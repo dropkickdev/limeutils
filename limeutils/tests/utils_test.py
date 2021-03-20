@@ -1,4 +1,5 @@
 import pytest
+from icecream import ic
 from limeutils import utils
 
 
@@ -39,3 +40,16 @@ def test_byte_conv(red, key, val):
     if val == '1.5':
         val = 1.5
     assert red.get(key) == val
+
+
+param = [
+    (['one', 'two', 'three', 'four'], 'one, two, three, or four'),
+    (['one', 'two', 'three'], 'one, two, or three'),
+    (['one', 'two'], 'one or two'),
+    (['one'], 'one'), ([], '')
+]
+@pytest.mark.parametrize('seq, out', param)
+@pytest.mark.utilfocus
+def test_oxford_comma(seq, out):
+    assert utils.oxford_comma(seq) == out
+    ic(utils.oxford_comma(seq))
