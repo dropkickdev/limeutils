@@ -52,4 +52,3 @@ param = [
 @pytest.mark.utilfocus
 def test_oxford_comma(seq, out):
     assert utils.oxford_comma(seq) == out
-    ic(utils.oxford_comma(seq))

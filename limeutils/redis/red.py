@@ -1,12 +1,12 @@
 from redis import Redis
-from typing import Optional, Union, Any
+from typing import Optional, Union, Any, Literal
 from pydantic import BaseModel
 from redis.client import list_or_args
 
 from . import models
 from icecream import ic
 from .models import LIST, VAL, StarterModel
-from limeutils import byte_conv
+from limeutils import byte_conv, ValidationError
 
 
 
@@ -33,16 +33,27 @@ class Red(Redis):
         list_ = list(filter(None, list_))
         return ":".join(list_)
 
-
-    def set(self, key: str, val: Union[VAL, LIST, set], **kwargs):
+    # TODO: How can they change the datatype if the datatype is set by the existing variable?
+    def set(self, key: str, val: Union[VAL, LIST, set, dict], **kwargs):
         key = self.formatkey(key)
         if isinstance(val, (str, int, float, bytes)):
             return super().set(key, val, **kwargs)
+        
         elif isinstance(val, (list, tuple)):
-            direction = kwargs.pop('direction', 'rpush')
-            return getattr(self, direction)(key, *val)
+            # TODO: This must replace the key instead of updating it
+            insert = kwargs.pop('insert', 'end')
+            if insert == 'end':
+                return self.rpush(key, *val)
+            elif insert == 'start':
+                return self.lpush(key, *val)
+            else:
+                raise ValidationError(choices=['start', 'end'])
+            
         elif isinstance(val, dict):
+            # TODO: For updating fields
+            clear = kwargs.pop('clear', False)
             return self.hset(key, mapping=val)
+        
         elif isinstance(val, set):
             return self.sadd(key, *val)
     
@@ -72,6 +83,10 @@ class Red(Redis):
             data = super().smembers(key)
             return {byte_conv(v) for v in data}
             
+    
+    # TODO: Update keys
+    def update(self, key: str, val: Union[VAL, LIST, set, dict], **kwargs):
+        pass
     
     def exists(self, *keys):
         keys = [self.formatkey(i) for i in keys]
