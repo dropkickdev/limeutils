@@ -18,6 +18,20 @@ def red():
     return Red(**CACHE_CONFIG)
 
 
+@pytest.fixture(scope='session')
+def nooverwrite():
+    CACHE_CONFIG = {
+        # 'host': 'localhost',
+        # 'port': 6379,
+        'db': 1,
+        'pre': 'TEST',
+        'ver': '',
+        'ttl': 3600 * 24 * 15,
+        'wrongtype': False
+    }
+    return Red(**CACHE_CONFIG)
+
+
 
 
 

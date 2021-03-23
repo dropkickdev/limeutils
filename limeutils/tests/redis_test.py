@@ -1,4 +1,5 @@
 import pytest
+from redis.exceptions import ResponseError
 from limeutils import byte_conv, ValidationError       # noqa
 from icecream import ic     # noqa
 
@@ -34,8 +35,8 @@ def test_hash(red):
     red.delete(red.formatkey('user'))
     red.set('user', dict(age=34, username='enchance', gender='m'))
     assert red.get('user') == dict(age=34, username='enchance', gender='m')
-    assert red.get('user', fields='username') == dict(username='enchance')
-    assert red.get('user', fields=['age', 'gender']) == dict(age=34, gender='m')
+    assert red.get('user', only='username') == dict(username='enchance')
+    assert red.get('user', only=['age', 'gender']) == dict(age=34, gender='m')
 
 
 # @pytest.mark.focus
@@ -52,9 +53,23 @@ def test_exists(red):
     red.set('three', dict(age=34, username='enchance', gender='m'))
     assert red.exists('one')
     assert red.exists('one', 'two', 'three')
+    
+
+# @pytest.mark.focus
+def test_overwrite(red, nooverwrite):
+    assert red.set('a', 'a')
+    assert red.set('a', 1)
+    assert red.set('a', 12.5)
+    assert red.set('a', [12, 56])
+    assert red.set('a', dict(foo='bar'))
+    
+    with pytest.raises(ResponseError):
+        nooverwrite.set('a', [1])
+    
 
 
-@pytest.mark.focus
+
+# @pytest.mark.focus
 def test_exception(red):
     with pytest.raises(ValidationError):
         red.set('fail', ['a', 'b'], insert='foo')
