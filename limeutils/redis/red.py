@@ -47,6 +47,7 @@ class Red(Redis):
         key = self.formatkey(key)
         clear = kwargs.pop('clear', False)
         insert = kwargs.pop('insert', 'end')
+        ex = kwargs.pop('ex', self.ttl)
         
         if clear:
             self.delete(key)
@@ -54,28 +55,35 @@ class Red(Redis):
         if isinstance(val, (str, int, float, bytes)):
             if self.clear_wrongtype and self._get_type(key) != 'string':
                 self.delete(key)
-            return super().set(key, val, **kwargs)
+            return super().set(key, val, ex=ex, **kwargs)
         
         elif isinstance(val, (list, tuple)):
             if self.clear_wrongtype and self._get_type(key) != 'list':
                 self.delete(key)
                     
             if insert == 'end':
-                return self.rpush(key, *val)
+                ret = self.rpush(key, *val)
             elif insert == 'start':
-                return self.lpush(key, *val)
+                ret = self.lpush(key, *val)
             else:
                 raise ValidationError(choices=['start', 'end'])
+            
+            self.expire(key, ex)
+            return ret
             
         elif isinstance(val, dict):
             if self.clear_wrongtype and self._get_type(key) != 'hash':
                 self.delete(key)
-            return self.hset(key, mapping=val)
+            ret = self.hset(key, mapping=val)
+            self.expire(key, ex)
+            return ret
         
         elif isinstance(val, set):
             if self.clear_wrongtype and self._get_type(key) != 'set':
                 self.delete(key)
-            return self.sadd(key, *val)
+            ret = self.sadd(key, *val)
+            self.expire(key, ex)
+            return ret
     
     
     def get(self, key: str, **kwargs):
