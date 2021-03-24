@@ -15,15 +15,15 @@ Get yourself up and running
 
 ```
 
-Example
--------
+Usage Example
+-------------
 
 ```python
 from limeutils import Red
 
 r = Red()
 
-# Or set a custom config
+# Or set your custom config
 CACHE_CONFIG = {
     'pre':  'FOOBAR',           # Defaults to ''
     'ver':  'v1',               # Defaults to ''
@@ -74,67 +74,30 @@ This makes sure you won't overrite any keys from other projects.
 Redis API
 ----------
 
-All methods are accessible from an instance of the `Redis` class. These are all validated using
- [Pydantic](https://pydantic-docs.helpmanual.io/) models.
+All methods are accessible from an instance of the `Red` class.
  
-**`get(key, default='', pre=None, ver=None)`**
-: Get the value of a single non-hash key. To set the value of this key use **`set()`**.
-
-: *Returns*: `Union[str, int, float]`
-
-: - `key`: Key name
-- `default`: Use this value if key doesn't exist
-{!partials/prever!}
-
-**`hget(key, field, default='', pre=None, ver=None)`**
-: Get a single field from a hash key. To set the value of this field use **`hset()`** or **`hmset()
-`**.
-
-: *Returns*: `Union[str, int, float]`
+**`get(key, **kwargs)`**
+: Get the value of a key. To set the value of this key use **`set()`**.
+: *Returns*: Can be `string`, `int`, `float`, `byte`, `dict`, `list`, or `set`.
 
 : - `key`: Key name
-- `field`: Field name
-- `default`: Use this value if field doesn't exist
-{!partials/prever!}
+- `kwargs`: Choose from any of the custom keys below.
+    - [`start=0`]: Starting index for lists
+    - [`end=-1`]: Ending index for lists
+    - [`only=`]: For hashes only return the fields you need
 
-**`hmget(key: str, fields=None, pre=None, ver=None)`**
-: Get multiple fields from a hash key. To set the value of these fields use **`hset()`** or
- **`hmset()**.
-
-: *Returns*: `dict`
-
-: - `key`: Key name
-- `fields`: List/Tuple of field names
-{!partials/prever!}
-
-**`hmset(key, mapping, ttl=None, pre=None, ver=None)`**
-: Add multiple fields to a hash key. If the key doesn't exist it is created. Validation done by the
- pydantic model **Hmset**.
- 
-: *Returns*: `int` Number of fields set. Updating an existing field counts as 0 not 1.
- 
-: - `key`: Key name
-- `mapping`: Dict of field-val pairs
-{!partials/ttlprever!}
-
-**`hset(key, field, val='', mapping=None, ttl=None, pre=None, ver=None)`**
-: Add a single field to a hash key. If the key doesn't exist it is created.
-
-: *Returns*: `int` Number of fields set. Updating an existing field counts as 0 not 1.
- 
-: - `key`: Key name
-- `field`: Field name
-- `val`: Key value
-- `mapping`: Dict of field-val pairs
-{!partials/ttlprever!}
-
-**`set(key, val='', xx=False, keepttl=False, ttl=None, pre=None, ver=None)`**
-: Create or update a single non-hash key. To read this key use **`get()`**.
-
-: *Returns*: `int` Number of keys created. Updated keys aren't counted.
+**`set(key, val, **kwargs)`**
+: Create or update a new key. To read this key use **`get()`**.
+: *Returns*: Varied depending on the value you set.
 
 : - `key`: Key name
-- `val`: Key value
-- `xx`: Set to val only if key already exists
-- `keepttl`: Retain the time to live associated with the key.
-{!partials/ttlprever!}
+- `kwargs`: Custom keys set below. Accepts all other keys set in the parent redis package.
+    - `val`: Can be `string`, `int`, `float`, `byte`, `dict`, `list`, or `set`
+    - [`clear=False`]: Delete the key first instead of updating it (if `dict` or `list`)
+    - [`insert=end`]: For lists. Accepts the literal: `start` (for queue) or `end` (for stack).
+    - [`ex=-1`]: Expiry in seconds
+    
+**`exists(key)`**
+: Check if the key exists.
+: *Returns*: `bool`
+: - `key`: Key name

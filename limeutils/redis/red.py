@@ -117,21 +117,14 @@ class Red(Redis):
             return {byte_conv(v) for v in data}
 
 
-    def exists(self, *keys):
-        keys = [self.formatkey(i) for i in keys]
-        return super().exists(*keys)
+    def exists(self, key):
+        key = self.formatkey(key)
+        return bool(super().exists(key))
     
     
     def _get_type(self, key: str):
         return byte_conv(super().type(key))
-        # data = models.Set(key=key, val=val, xx=xx, keepttl=keepttl, ttl=ttl, pre=pre, ver=ver)
-        # key = self.formatkey(data)
-        # ttl = data.ttl if data.ttl is not None else self.ttl
-        #
-        # self.pipe.set(key, data.val, xx=data.xx, keepttl=data.keepttl)
-        # self.pipe.expire(key, ttl)
-        # [set_ret, _] = self.pipe.execute()
-        # return set_ret
+
 
 # class Redis:
 #     def __init__(self, **kwargs):
@@ -143,17 +136,6 @@ class Red(Redis):
 #
 #     def hset(self, key: str, field: str, val: Optional[V] = '', mapping: Optional[dict] = None,
 #              ttl=None, pre=None, ver=None) -> int:
-#         """
-#         Add a single hash field using HSET
-#         :param key:     Hash key name
-#         :param field:   Field in the key
-#         :param val:     Value
-#         :param mapping: For multiple fields
-#         :param ttl:     Custom ttl
-#         :param pre:     Custom prefix
-#         :param ver:     Custom version
-#         :return:        Number of fields set. Updating an existing field counts as 0 not 1.
-#         """
 #         data = models.Hset(key=key, field=field, val=val, mapping=mapping,
 #                            ttl=ttl, pre=pre, ver=ver)
 #         key = self.cleankey(data)

@@ -3,19 +3,26 @@ from limeutils import Red
 # Create the redis object
 r = Red()
 
-# Save and read a key
+# STRING
 r.set('message', 'Hello there')
-r.get('message')                    # Returns int, float, string, or bytes
+r.get('message')                    # 'Hello there'
+r.set('age', 5)
+r.get('age')                        # 5 (int)
+r.set('total', 12.5)
+r.get('total')                      # 12.5 (float)
 
-# Save and read a hash
+# HASH
 r.set('user', dict(username='jimmy', age=99, gender='m'))
-r.get('user')                               # All keys as dict
-r.get('user', only=['username', 'age'])   # Some keys as dict
+r.get('user')                               # dict(username='jimmy', age=99, gender='m')
+r.set('user', dict(username='foo'))         # Update
+r.get('user', only=['username', 'age'])     # dict(username='foo', age=99)
 
-# Save and read a list
+# LIST
 r.set('names', ['jimmy', 'tina'])
-r.get('names')                              # Return list
+r.set('names', ['sam'])
+r.get('names')                              # ['jimmy', 'tina', 'sam']
+r.get('names', start=1, end=-1)             # ['tina', 'sam']
 
 # Save and read a set
 r.set('names', {'jimmy', 'tina'})
-r.get('names')                              # Return set
+r.get('names')                              # {'jimmy', 'tina'}
