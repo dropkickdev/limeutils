@@ -14,7 +14,7 @@
     
     
       
-        <title>Redis API - Limeutils</title>
+        <title>Quickstart - Limeutils</title>
       
     
     
@@ -62,7 +62,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#redis-api" class="md-skip">
+        <a href="#redis-utilities" class="md-skip">
           Skip to content
         </a>
       
@@ -94,7 +94,7 @@
         <div class="md-header-nav__topic">
           <span class="md-ellipsis">
             
-              Redis API
+              Quickstart
             
           </span>
         </div>
@@ -237,18 +237,6 @@
             
   
   
-  
-    <li class="md-nav__item">
-      <a href="../quickstart/" class="md-nav__link">
-        Quickstart
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
     
   
   
@@ -259,10 +247,92 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Quickstart
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
-        Redis API
+        Quickstart
       </a>
       
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#quickstart" class="md-nav__link">
+    Quickstart
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setup" class="md-nav__link">
+    Setup
+  </a>
+  
+    <nav class="md-nav" aria-label="Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-default-settings" class="md-nav__link">
+    Use Default settings
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-custom-config" class="md-nav__link">
+    Use custom config
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#with-connection-information" class="md-nav__link">
+    With connection information
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-prefixes" class="md-nav__link">
+    Key Prefixes
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        Redis API
+      </a>
     </li>
   
 
@@ -321,6 +391,62 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#quickstart" class="md-nav__link">
+    Quickstart
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setup" class="md-nav__link">
+    Setup
+  </a>
+  
+    <nav class="md-nav" aria-label="Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-default-settings" class="md-nav__link">
+    Use Default settings
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-custom-config" class="md-nav__link">
+    Use custom config
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#with-connection-information" class="md-nav__link">
+    With connection information
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-prefixes" class="md-nav__link">
+    Key Prefixes
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -332,46 +458,93 @@
               
                 
                 
-                <h1 id="redis-api">Redis API</h1>
-<dl>
-<dt><strong><code>get(key, **kwargs)</code></strong></dt>
-<dd>Get the value of a key. To set the value of this key use <strong><code>set()</code></strong>.</dd>
-<dd><em>Returns</em>: Can be <code>string</code>, <code>int</code>, <code>float</code>, <code>byte</code>, <code>dict</code>, <code>list</code>, or <code>set</code>.</dd>
-<dd>
+                <h1 id="redis-utilities">Redis Utilities</h1>
+<p>The <code>Red</code> class uses the official <a href="https://pypi.org/project/redis/">redis</a> python package in
+ its methods. Limeutils acts as
+ a wrapper simplifying the use of the package and parsing all data it returns into valid python data
+  types.</p>
+<h2 id="quickstart">Quickstart</h2>
+<p>Get yourself up and running</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">limeutils</span> <span class="kn">import</span> <span class="n">Red</span>
+
+<span class="c1"># Create the redis object</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">Red</span><span class="p">()</span>
+
+<span class="c1"># STRING</span>
+<span class="n">r</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">,</span> <span class="s1">&#39;Hello there&#39;</span><span class="p">)</span>
+<span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">)</span>                    <span class="c1"># &#39;Hello there&#39;</span>
+<span class="n">r</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">)</span>                        <span class="c1"># 5 (int)</span>
+<span class="n">r</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;total&#39;</span><span class="p">,</span> <span class="mf">12.5</span><span class="p">)</span>
+<span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;total&#39;</span><span class="p">)</span>                      <span class="c1"># 12.5 (float)</span>
+
+<span class="c1"># HASH</span>
+<span class="n">r</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;user&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s1">&#39;jimmy&#39;</span><span class="p">,</span> <span class="n">age</span><span class="o">=</span><span class="mi">99</span><span class="p">,</span> <span class="n">gender</span><span class="o">=</span><span class="s1">&#39;m&#39;</span><span class="p">))</span>
+<span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;user&#39;</span><span class="p">)</span>                               <span class="c1"># dict(username=&#39;jimmy&#39;, age=99, gender=&#39;m&#39;)</span>
+<span class="n">r</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;user&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s1">&#39;foo&#39;</span><span class="p">))</span>         <span class="c1"># Update</span>
+<span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;user&#39;</span><span class="p">,</span> <span class="n">only</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">])</span>     <span class="c1"># dict(username=&#39;foo&#39;, age=99)</span>
+
+<span class="c1"># LIST</span>
+<span class="n">r</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;names&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;jimmy&#39;</span><span class="p">,</span> <span class="s1">&#39;tina&#39;</span><span class="p">])</span>
+<span class="n">r</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;names&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;sam&#39;</span><span class="p">])</span>
+<span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;names&#39;</span><span class="p">)</span>                              <span class="c1"># [&#39;jimmy&#39;, &#39;tina&#39;, &#39;sam&#39;]</span>
+<span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;names&#39;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">end</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>             <span class="c1"># [&#39;tina&#39;, &#39;sam&#39;]</span>
+
+<span class="c1"># Save and read a set</span>
+<span class="n">r</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;names&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;jimmy&#39;</span><span class="p">,</span> <span class="s1">&#39;tina&#39;</span><span class="p">})</span>
+<span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;names&#39;</span><span class="p">)</span>                              <span class="c1"># {&#39;jimmy&#39;, &#39;tina&#39;}</span>
+</code></pre></div>
+
+<h2 id="setup">Setup</h2>
+<h3 id="use-default-settings">Use Default settings</h3>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">limeutils</span> <span class="kn">import</span> <span class="n">Red</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">Red</span><span class="p">()</span>
+</code></pre></div>
+
+<h3 id="use-custom-config">Use custom config</h3>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">limeutils</span> <span class="kn">import</span> <span class="n">Red</span>
+
+<span class="n">CACHE_CONFIG</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;pre&#39;</span><span class="p">:</span>  <span class="s1">&#39;FOOBAR&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;ver&#39;</span><span class="p">:</span>  <span class="s1">&#39;v1&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;ttl&#39;</span><span class="p">:</span>  <span class="mi">3600</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">Red</span><span class="p">(</span><span class="o">**</span><span class="n">CACHE_CONFIG</span><span class="p">)</span>
+</code></pre></div>
+
 <ul>
-<li><code>key</code>: <code>str</code> key name</li>
-<li><code>kwargs</code>: Choose from any of the custom keys below.<ul>
-<li><code>start=0</code>: Starting index for lists</li>
-<li><code>end=-1</code>: Ending index for lists</li>
-<li><code>only=</code>: For hashes only return the fields you need</li>
+<li><code>pre</code>: Prefix for your key. Defaults to an empty string.</li>
+<li><code>ver</code>: Version for your key. Defaults to an empty string.</li>
+<li><code>ttl</code>: Expires time for the key. Can be overridden in the <code>set()</code> method. Defaults to -1.</li>
+<li><code>clear_wrongtype</code>: Allows using an existing key for a different data type (e.g. string -&gt; dict
+). Defaults to <code>True</code>. Setting this to <code>False</code> raises an exception whenever you try saving with
+ a different data type than the one you started with.</li>
 </ul>
-</li>
-</ul>
-</dd>
-<dt><strong><code>set(key, val, **kwargs)</code></strong></dt>
-<dd>Create or update a new key. To read this key use <strong><code>get()</code></strong>.</dd>
-<dd><em>Returns</em>: Varied depending on the value you set.</dd>
-<dd>
-<ul>
-<li><code>key</code>: <code>str</code> key name</li>
-<li><code>val</code>: Can be <code>string</code>, <code>int</code>, <code>float</code>, <code>byte</code>, <code>dict</code>, <code>list</code>, or <code>set</code></li>
-<li><code>kwargs</code>: Custom keys set below. Accepts all other keys set in the parent redis package.<ul>
-<li><code>clear=False</code>: Delete the key first instead of updating it (if <code>dict</code> or <code>list</code>)</li>
-<li><code>insert=end</code>: For lists. Accepts the literal: <code>start</code> (for queue) or <code>end</code> (for stack).</li>
-<li><code>ex=-1</code>: Expiry in seconds</li>
-</ul>
-</li>
-</ul>
-</dd>
-<dt><strong><code>exists(key)</code></strong></dt>
-<dd>Check if the key exists.</dd>
-<dd><em>Returns</em>: <code>bool</code></dd>
-<dd>
-<ul>
-<li><code>key</code>: <code>str</code> key name</li>
-</ul>
-</dd>
-</dl>
+<h3 id="with-connection-information">With connection information</h3>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">limeutils</span> <span class="kn">import</span> <span class="n">Red</span>
+
+<span class="n">CACHE_CONFIG</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;host&#39;</span><span class="p">:</span> <span class="s1">&#39;localhost&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;port&#39;</span><span class="p">:</span> <span class="mi">6379</span><span class="p">,</span>
+    <span class="s1">&#39;db&#39;</span><span class="p">:</span>   <span class="mi">0</span><span class="p">,</span>
+    <span class="s1">&#39;pre&#39;</span><span class="p">:</span>  <span class="s1">&#39;FOOBAR&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;ver&#39;</span><span class="p">:</span>  <span class="s1">&#39;v1&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;ttl&#39;</span><span class="p">:</span>  <span class="mi">3600</span>
+<span class="p">}</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">Red</span><span class="p">(</span><span class="o">**</span><span class="n">CACHE_CONFIG</span><span class="p">)</span>
+</code></pre></div>
+
+<p>If you don't include any connection information then the redis defaults will be used.</p>
+<h2 id="key-prefixes">Key Prefixes</h2>
+<p>Limeutils lets you use prefixes for your keys allowing for better key
+ management. Just add it when you create your object.</p>
+<div class="codehilite"><pre><span></span><code><span class="hll"><span class="n">r</span> <span class="o">=</span> <span class="n">redis</span><span class="o">.</span><span class="n">Redis</span><span class="p">(</span><span class="n">pre</span><span class="o">=</span><span class="s1">&#39;FOOBAR&#39;</span><span class="p">,</span> <span class="n">ver</span><span class="o">=</span><span class="s1">&#39;v1&#39;</span><span class="p">)</span>
+</span></code></pre></div>
+
+<p>Keys are saved in the format <strong>prefix:version:key</strong> in redis. Creating a key named <code>user</code> in python is saved as <code>FOOBAR:v1:user</code> in redis. But when
+  you need to use this key in python you only type the name <code>user</code> and the <code>r</code> object
+  prepends the prefixes for you.    </p>
                 
               
               
@@ -390,7 +563,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../quickstart/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../.." class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
             </div>
@@ -399,19 +572,19 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Quickstart
+                Home
               </div>
             </div>
           </a>
         
         
-          <a href="../../utils/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../api/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Utilities
+                Redis API
               </div>
             </div>
             <div class="md-footer-nav__button md-icon">
