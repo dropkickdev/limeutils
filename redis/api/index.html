@@ -334,6 +334,14 @@
                 
                 <h1 id="redis-api">Redis API</h1>
 <dl>
+<dt><strong><code>formatkey(key)</code></strong></dt>
+<dd>Create the key name in <strong>prefix:version:key</strong> format as it is  saved in redis.</dd>
+<dd><em>Returns</em>: <code>str</code></dd>
+<dd>
+<ul>
+<li><code>key</code>: <code>str</code> key name</li>
+</ul>
+</dd>
 <dt><strong><code>get(key, **kwargs)</code></strong></dt>
 <dd>Get the value of a key. To set the value of this key use <strong><code>set()</code></strong>.</dd>
 <dd><em>Returns</em>: Can be <code>string</code>, <code>int</code>, <code>float</code>, <code>byte</code>, <code>dict</code>, <code>list</code>, or <code>set</code>.</dd>
@@ -343,7 +351,7 @@
 <li><code>kwargs</code>: Choose from any of the custom keys below.<ul>
 <li><code>start=0</code>: Starting index for lists</li>
 <li><code>end=-1</code>: Ending index for lists</li>
-<li><code>only=</code>: For hashes only return the fields you need</li>
+<li><code>only=</code>: For hashes only. Return the fields you need. List fields as a <code>list</code>.</li>
 </ul>
 </li>
 </ul>
@@ -363,12 +371,12 @@
 </li>
 </ul>
 </dd>
-<dt><strong><code>exists(key)</code></strong></dt>
-<dd>Check if the key exists.</dd>
-<dd><em>Returns</em>: <code>bool</code></dd>
+<dt><strong><code>exists(*keys)</code></strong></dt>
+<dd>Checks if keys exists. Returns the number of keys that exist not which of the keys exists.</dd>
+<dd><em>Returns</em>: <code>int</code></dd>
 <dd>
 <ul>
-<li><code>key</code>: <code>str</code> key name</li>
+<li><code>*keys</code>: <code>str</code> key name</li>
 </ul>
 </dd>
 </dl>
