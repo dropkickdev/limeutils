@@ -41,8 +41,8 @@ class Red(Redis):
         Set and updates a key
         :param key:     Key name
         :param val:     Value to save. Could be any valid value inc dict or list
-        :param kwargs:  Checks for clear and insert
-        :return:
+        :param kwargs:  Checks for clear, insert, and parent kwargs
+        :return:        Depends on the type of key
         """
         key = self.formatkey(key)
         clear = kwargs.pop('clear', False)
@@ -87,6 +87,12 @@ class Red(Redis):
     
     
     def get(self, key: str, **kwargs):
+        """
+        Get the value of a key
+        :param key:     Key name
+        :param kwargs:  Checks for start, end, only, and parent kwargs
+        :return:        Depends on the type of key
+        """
         start = kwargs.pop('start', 0)
         end = kwargs.pop('end', -1)
         only = kwargs.pop('only', None)
