@@ -10,7 +10,7 @@
       
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.3">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.8">
     
     
       
@@ -18,7 +18,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.3b61ea93.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.cb6bc1d0.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.39b8e14a.min.css">
@@ -196,66 +196,67 @@
       
       
 
-
-
-  <li class="md-nav__item">
-    <a href="../.." class="md-nav__link">
-      Home
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
   
 
+    
+      
+      
+      
 
   
-  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+  
     
+  
+  
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
-    
-    <label class="md-nav__link" for="nav-2">
-      Redis
-      <span class="md-nav__icon md-icon"></span>
-    </label>
-    <nav class="md-nav" aria-label="Redis" data-md-level="1">
-      <label class="md-nav__title" for="nav-2">
-        <span class="md-nav__icon md-icon"></span>
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+      
+      <label class="md-nav__link" for="nav-2">
         Redis
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
-          
-          
-          
-
-
-  
-
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-      
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="__toc">
-        Redis API
         <span class="md-nav__icon md-icon"></span>
       </label>
+      <nav class="md-nav" aria-label="Redis" data-md-level="1">
+        <label class="md-nav__title" for="nav-2">
+          <span class="md-nav__icon md-icon"></span>
+          Redis
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
     
-    <a href="./" class="md-nav__link md-nav__link--active">
-      Redis API
-    </a>
-    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
       
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Redis API
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Redis API
+      </a>
+      
+        
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
@@ -276,8 +277,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#example" class="md-nav__link">
-    Example
+  <a href="#usage-example" class="md-nav__link">
+    Usage Example
   </a>
   
 </li>
@@ -299,52 +300,45 @@
     </ul>
   
 </nav>
-    
-  </li>
+      
+    </li>
+  
 
-        
           
-          
-          
-
-
-
-  <li class="md-nav__item">
-    <a href="../models/" class="md-nav__link">
-      Models
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
+        </ul>
+      </nav>
+    </li>
+  
 
     
       
       
       
 
-
-
-  <li class="md-nav__item">
-    <a href="../../utils/" class="md-nav__link">
-      Utilities
-    </a>
-  </li>
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../utils/" class="md-nav__link">
+        Utilities
+      </a>
+    </li>
+  
 
     
       
       
       
 
-
-
-  <li class="md-nav__item">
-    <a href="../../changelog/" class="md-nav__link">
-      Changelog
-    </a>
-  </li>
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/" class="md-nav__link">
+        Changelog
+      </a>
+    </li>
+  
 
     
   </ul>
@@ -379,8 +373,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#example" class="md-nav__link">
-    Example
+  <a href="#usage-example" class="md-nav__link">
+    Usage Example
   </a>
   
 </li>
@@ -413,41 +407,68 @@
                 
                 
                 <h1 id="redis-utilities">Redis Utilities</h1>
-<p>The <code>Redis()</code> class uses the official <a href="https://pypi.org/project/redis/">redis</a> python package in
+<p>The <code>Red</code> class uses the official <a href="https://pypi.org/project/redis/">redis</a> python package in
  its methods. Limeutils acts as
- a wrapper parsing all data it returns into valid python data types.</p>
+ a wrapper simplifying the use of the package and parsing all data it returns into valid python data
+  types.</p>
 <h2 id="quickstart">Quickstart</h2>
 <p>Get yourself up and running</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">limeutils</span> <span class="kn">import</span> <span class="n">redis</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">limeutils</span> <span class="kn">import</span> <span class="n">Red</span>
 
 <span class="c1"># Create the redis object</span>
-<span class="n">r</span> <span class="o">=</span> <span class="n">redis</span><span class="o">.</span><span class="n">Redis</span><span class="p">(</span><span class="n">pre</span><span class="o">=</span><span class="s1">&#39;FOOBAR&#39;</span><span class="p">,</span> <span class="n">ver</span><span class="o">=</span><span class="s1">&#39;v1&#39;</span><span class="p">)</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">Red</span><span class="p">()</span>
 
-<span class="c1"># Save a key</span>
-<span class="n">r</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;samplekey&#39;</span><span class="p">,</span> <span class="s1">&#39;hello there&#39;</span><span class="p">)</span>
+<span class="c1"># STRING</span>
+<span class="n">r</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">,</span> <span class="s1">&#39;Hello there&#39;</span><span class="p">)</span>
+<span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">)</span>                    <span class="c1"># &#39;Hello there&#39;</span>
+<span class="n">r</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">)</span>                        <span class="c1"># 5 (int)</span>
+<span class="n">r</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;total&#39;</span><span class="p">,</span> <span class="mf">12.5</span><span class="p">)</span>
+<span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;total&#39;</span><span class="p">)</span>                      <span class="c1"># 12.5 (float)</span>
 
-<span class="c1"># Read the key</span>
-<span class="n">message</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;samplekey&#39;</span><span class="p">)</span>
+<span class="c1"># HASH</span>
+<span class="n">r</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;user&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s1">&#39;jimmy&#39;</span><span class="p">,</span> <span class="n">age</span><span class="o">=</span><span class="mi">99</span><span class="p">,</span> <span class="n">gender</span><span class="o">=</span><span class="s1">&#39;m&#39;</span><span class="p">))</span>
+<span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;user&#39;</span><span class="p">)</span>                               <span class="c1"># dict(username=&#39;jimmy&#39;, age=99, gender=&#39;m&#39;)</span>
+<span class="n">r</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;user&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s1">&#39;foo&#39;</span><span class="p">))</span>         <span class="c1"># Update</span>
+<span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;user&#39;</span><span class="p">,</span> <span class="n">only</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">])</span>     <span class="c1"># dict(username=&#39;foo&#39;, age=99)</span>
 
-<span class="c1"># Save a hash</span>
-<span class="n">r</span><span class="o">.</span><span class="n">hset</span><span class="p">(</span><span class="s1">&#39;user-123&#39;</span><span class="p">,</span> <span class="s1">&#39;username&#39;</span><span class="p">,</span> <span class="s1">&#39;jimisawesome&#39;</span><span class="p">)</span>
+<span class="c1"># LIST</span>
+<span class="n">r</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;names&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;jimmy&#39;</span><span class="p">,</span> <span class="s1">&#39;tina&#39;</span><span class="p">])</span>
+<span class="n">r</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;names&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;sam&#39;</span><span class="p">])</span>
+<span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;names&#39;</span><span class="p">)</span>                              <span class="c1"># [&#39;jimmy&#39;, &#39;tina&#39;, &#39;sam&#39;]</span>
+<span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;names&#39;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">end</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>             <span class="c1"># [&#39;tina&#39;, &#39;sam&#39;]</span>
 
-<span class="c1"># Read the hash</span>
-<span class="n">username</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">hget</span><span class="p">(</span><span class="s1">&#39;user-123&#39;</span><span class="p">,</span> <span class="s1">&#39;username&#39;</span><span class="p">)</span>
+<span class="c1"># Save and read a set</span>
+<span class="n">r</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;names&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;jimmy&#39;</span><span class="p">,</span> <span class="s1">&#39;tina&#39;</span><span class="p">})</span>
+<span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;names&#39;</span><span class="p">)</span>                              <span class="c1"># {&#39;jimmy&#39;, &#39;tina&#39;}</span>
 </code></pre></div>
 
-<h2 id="example">Example</h2>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">limeutils</span> <span class="kn">import</span> <span class="n">redis</span>
+<h2 id="usage-example">Usage Example</h2>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">limeutils</span> <span class="kn">import</span> <span class="n">Red</span>
 
-<span class="c1"># Create the redis object</span>
-<span class="n">r</span> <span class="o">=</span> <span class="n">redis</span><span class="o">.</span><span class="n">Redis</span><span class="p">()</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">Red</span><span class="p">()</span>
+
+<span class="c1"># Or set your custom config</span>
+<span class="n">CACHE_CONFIG</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;pre&#39;</span><span class="p">:</span>  <span class="s1">&#39;FOOBAR&#39;</span><span class="p">,</span>           <span class="c1"># Defaults to &#39;&#39;</span>
+    <span class="s1">&#39;ver&#39;</span><span class="p">:</span>  <span class="s1">&#39;v1&#39;</span><span class="p">,</span>               <span class="c1"># Defaults to &#39;&#39;</span>
+    <span class="s1">&#39;ttl&#39;</span><span class="p">:</span>  <span class="mi">3600</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">15</span><span class="p">,</span>     <span class="c1"># Defaults to -1</span>
+<span class="p">}</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">Red</span><span class="p">(</span><span class="o">**</span><span class="n">CACHE_CONFIG</span><span class="p">)</span>
 </code></pre></div>
 
 <p>With connection information</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">limeutils</span> <span class="kn">import</span> <span class="n">redis</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">limeutils</span> <span class="kn">import</span> <span class="n">Red</span>
 
-<span class="c1"># Create the redis object</span>
-<span class="n">r</span> <span class="o">=</span> <span class="n">redis</span><span class="o">.</span><span class="n">Redis</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">2468</span><span class="p">,</span> <span class="n">db</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">CACHE_CONFIG</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;host&#39;</span><span class="p">:</span> <span class="s1">&#39;localhost&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;port&#39;</span><span class="p">:</span> <span class="mi">6379</span><span class="p">,</span>
+    <span class="s1">&#39;db&#39;</span><span class="p">:</span>   <span class="mi">0</span><span class="p">,</span>
+    <span class="s1">&#39;pre&#39;</span><span class="p">:</span>  <span class="s1">&#39;FOOBAR&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;ver&#39;</span><span class="p">:</span>  <span class="s1">&#39;v1&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;ttl&#39;</span><span class="p">:</span>  <span class="mi">3600</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">15</span><span class="p">,</span>    
+<span class="p">}</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">Red</span><span class="p">(</span><span class="o">**</span><span class="n">CACHE_CONFIG</span><span class="p">)</span>
 </code></pre></div>
 
 <p>If you don't include any connection information then the redis defaults will be used.</p>
@@ -471,83 +492,43 @@
 </div>
 <p><a id="api"></a></p>
 <h2 id="redis-api">Redis API</h2>
-<p>All methods are accessible from an instance of the <code>Redis</code> class. These are all validated using
- <a href="https://pydantic-docs.helpmanual.io/">Pydantic</a> models.</p>
+<p>All methods are accessible from an instance of the <code>Red</code> class.</p>
 <dl>
-<dt><strong><code>get(key, default='', pre=None, ver=None)</code></strong></dt>
-<dd>Get the value of a single non-hash key. To set the value of this key use <strong><code>set()</code></strong>.</dd>
-<dd><em>Returns</em>: <code>Union[str, int, float]</code></dd>
+<dt><strong><code>get(key, **kwargs)</code></strong></dt>
+<dd>Get the value of a key. To set the value of this key use <strong><code>set()</code></strong>.</dd>
+<dd><em>Returns</em>: Can be <code>string</code>, <code>int</code>, <code>float</code>, <code>byte</code>, <code>dict</code>, <code>list</code>, or <code>set</code>.</dd>
 <dd>
 <ul>
 <li><code>key</code>: Key name</li>
-<li><code>default</code>: Use this value if key doesn't exist</li>
-<li><code>pre</code>: Custom prefix. Overrides the prefix set when you created the object.</li>
-<li><code>ver</code>: Custom version. Overrides the version set when you created the object.</li>
+<li><code>kwargs</code>: Choose from any of the custom keys below.<ul>
+<li>[<code>start=0</code>]: Starting index for lists</li>
+<li>[<code>end=-1</code>]: Ending index for lists</li>
+<li>[<code>only=</code>]: For hashes only return the fields you need</li>
+</ul>
+</li>
 </ul>
 </dd>
-<dt><strong><code>hget(key, field, default='', pre=None, ver=None)</code></strong></dt>
-<dd>Get a single field from a hash key. To set the value of this field use <strong><code>hset()</code></strong> or <strong><code>hmset()</code></strong>.</dd>
-<dd><em>Returns</em>: <code>Union[str, int, float]</code></dd>
+<dt><strong><code>set(key, val, **kwargs)</code></strong></dt>
+<dd>Create or update a new key. To read this key use <strong><code>get()</code></strong>.</dd>
+<dd><em>Returns</em>: Varied depending on the value you set.</dd>
 <dd>
 <ul>
 <li><code>key</code>: Key name</li>
-<li><code>field</code>: Field name</li>
-<li><code>default</code>: Use this value if field doesn't exist</li>
-<li><code>pre</code>: Custom prefix. Overrides the prefix set when you created the object.</li>
-<li><code>ver</code>: Custom version. Overrides the version set when you created the object.</li>
+<li><code>kwargs</code>: Custom keys set below. Accepts all other keys set in the parent redis package.<ul>
+<li><code>val</code>: Can be <code>string</code>, <code>int</code>, <code>float</code>, <code>byte</code>, <code>dict</code>, <code>list</code>, or <code>set</code></li>
+<li>[<code>clear=False</code>]: Delete the key first instead of updating it (if <code>dict</code> or <code>list</code>)</li>
+<li>[<code>insert=end</code>]: For lists. Accepts the literal: <code>start</code> (for queue) or <code>end</code> (for stack).</li>
+<li>[<code>ex=-1</code>]: Expiry in seconds</li>
+</ul>
+</li>
 </ul>
 </dd>
-<dt><strong><code>hmget(key: str, fields=None, pre=None, ver=None)</code></strong></dt>
-<dd>Get multiple fields from a hash key. To set the value of these fields use <strong><code>hset()</code></strong> or
- <strong>`hmset()</strong>.</dd>
-<dd><em>Returns</em>: <code>dict</code></dd>
+<dt><strong><code>exists(key)</code></strong></dt>
+<dd>Check if the key exists.</dd>
+<dd><em>Returns</em>: <code>bool</code></dd>
 <dd>
 <ul>
 <li><code>key</code>: Key name</li>
-<li><code>fields</code>: List/Tuple of field names</li>
-<li><code>pre</code>: Custom prefix. Overrides the prefix set when you created the object.</li>
-<li><code>ver</code>: Custom version. Overrides the version set when you created the object.</li>
-</ul>
-</dd>
-<dt><strong><code>hmset(key, mapping, ttl=None, pre=None, ver=None)</code></strong></dt>
-<dd>Add multiple fields to a hash key. If the key doesn't exist it is created. Validation done by the
- pydantic model <strong>Hmset</strong>.</dd>
-<dd><em>Returns</em>: <code>int</code> Number of fields set. Updating an existing field counts as 0 not 1.</dd>
-<dd>
-<ul>
-<li><code>key</code>: Key name</li>
-<li><code>mapping</code>: Dict of field-val pairs</li>
-<li><code>ttl</code>: TTL for this key. Can be in <code>int</code> seconds or a <code>timedelta</code> object.</li>
-<li><code>pre</code>: Custom prefix. Overrides the prefix set when you created the object.</li>
-<li><code>ver</code>: Custom version. Overrides the version set when you created the object.</li>
-</ul>
-</dd>
-<dt><strong><code>hset(key, field, val='', mapping=None, ttl=None, pre=None, ver=None)</code></strong></dt>
-<dd>Add a single field to a hash key. If the key doesn't exist it is created.</dd>
-<dd><em>Returns</em>: <code>int</code> Number of fields set. Updating an existing field counts as 0 not 1.</dd>
-<dd>
-<ul>
-<li><code>key</code>: Key name</li>
-<li><code>field</code>: Field name</li>
-<li><code>val</code>: Key value</li>
-<li><code>mapping</code>: Dict of field-val pairs</li>
-<li><code>ttl</code>: TTL for this key. Can be in <code>int</code> seconds or a <code>timedelta</code> object.</li>
-<li><code>pre</code>: Custom prefix. Overrides the prefix set when you created the object.</li>
-<li><code>ver</code>: Custom version. Overrides the version set when you created the object.</li>
-</ul>
-</dd>
-<dt><strong><code>set(key, val='', xx=False, keepttl=False, ttl=None, pre=None, ver=None)</code></strong></dt>
-<dd>Create or update a single non-hash key. To read this key use <strong><code>get()</code></strong>.</dd>
-<dd><em>Returns</em>: <code>int</code> Number of keys created. Updated keys aren't counted.</dd>
-<dd>
-<ul>
-<li><code>key</code>: Key name</li>
-<li><code>val</code>: Key value</li>
-<li><code>xx</code>: Set to val only if key already exists</li>
-<li><code>keepttl</code>: Retain the time to live associated with the key.</li>
-<li><code>ttl</code>: TTL for this key. Can be in <code>int</code> seconds or a <code>timedelta</code> object.</li>
-<li><code>pre</code>: Custom prefix. Overrides the prefix set when you created the object.</li>
-<li><code>ver</code>: Custom version. Overrides the version set when you created the object.</li>
 </ul>
 </dd>
 </dl>
@@ -584,13 +565,13 @@
           </a>
         
         
-          <a href="../models/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../../utils/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Models
+                Utilities
               </div>
             </div>
             <div class="md-footer-nav__button md-icon">
@@ -617,15 +598,15 @@
       
     </div>
     
-      <script src="../../assets/javascripts/vendor.08c56446.min.js"></script>
-      <script src="../../assets/javascripts/bundle.6ced434e.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      <script src="../../assets/javascripts/vendor.18f0862e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.994580cf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
       <script>
         app = initialize({
           base: "../..",
           features: [],
           search: Object.assign({
-            worker: "../../assets/javascripts/worker/search.8c7e0a7e.min.js"
+            worker: "../../assets/javascripts/worker/search.9c0e82ba.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>

@@ -1,16 +1,28 @@
-from limeutils import redis
+from limeutils import Red
 
 # Create the redis object
-r = redis.Redis(pre='FOOBAR', ver='v1')
+r = Red()
 
-# Save a key
-r.set('samplekey', 'hello there')
+# STRING
+r.set('message', 'Hello there')
+r.get('message')                    # 'Hello there'
+r.set('age', 5)
+r.get('age')                        # 5 (int)
+r.set('total', 12.5)
+r.get('total')                      # 12.5 (float)
 
-# Read the key
-message = r.get('samplekey')
+# HASH
+r.set('user', dict(username='jimmy', age=99, gender='m'))
+r.get('user')                               # dict(username='jimmy', age=99, gender='m')
+r.set('user', dict(username='foo'))         # Update
+r.get('user', only=['username', 'age'])     # dict(username='foo', age=99)
 
-# Save a hash
-r.hset('user-123', 'username', 'jimisawesome')
+# LIST
+r.set('names', ['jimmy', 'tina'])
+r.set('names', ['sam'])
+r.get('names')                              # ['jimmy', 'tina', 'sam']
+r.get('names', start=1, end=-1)             # ['tina', 'sam']
 
-# Read the hash
-username = r.hget('user-123', 'username')
+# Save and read a set
+r.set('names', {'jimmy', 'tina'})
+r.get('names')                              # {'jimmy', 'tina'}
