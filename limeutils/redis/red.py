@@ -123,9 +123,9 @@ class Red(Redis):
             return {byte_conv(v) for v in data}
 
 
-    def exists(self, key):
-        key = self.formatkey(key)
-        return bool(super().exists(key))
+    def exists(self, *keys):
+        keys = [self.formatkey(i) for i in keys]
+        return super().exists(*keys)
     
     
     def _get_type(self, key: str):
