@@ -14,6 +14,7 @@ edit_uri: ''
 nav:
   - Home: index.md
   - Redis:
+    - Quickstart: redis/quickstart.md
     - Redis API: redis/api.md
 #    - Models: redis/models.md
   - Utilities: utils.md
