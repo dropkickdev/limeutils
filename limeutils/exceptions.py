@@ -9,6 +9,9 @@ class ValidationError(Exception):
         else:
             self.message = message or 'Arguments must use the correct value or selection of values.'
         super().__init__(self.message)
+        
+    def __str__(self):
+        return self.message
 
 
 class RedisError(Exception):
