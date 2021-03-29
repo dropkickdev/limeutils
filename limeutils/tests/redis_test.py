@@ -46,13 +46,16 @@ def test_set_data(red):
     assert red.get('norepeat') == {'d', 'a', 'b', 'c'}   # unordered of course
 
 
-# @pytest.mark.focus
-def test_exists(red):
-    red.set('one', 432.5)
-    red.set('two', ['b'])
-    red.set('three', dict(age=34, username='enchance', gender='m'))
-    assert red.exists('one')
-    assert red.exists('one', 'two', 'three')
+param = [
+    ('one', 432.5, ['one'], 1), ('two', ['b'], ['one', 'two'], 2),
+    ('three', dict(age=34, username='sally', gender='f'), ['one', 'two', 'three'], 3)
+]
+@pytest.mark.parametrize('key, val, check, out', param)
+@pytest.mark.focus
+def test_exists(red, key, val, check, out):
+    red.set(key, val)
+    assert red.exists(*check) == out
+    assert isinstance(out, int)
     
 
 # @pytest.mark.focus

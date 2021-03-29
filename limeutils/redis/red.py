@@ -123,7 +123,7 @@ class Red(Redis):
             return {byte_conv(v) for v in data}
 
 
-    def exists(self, *keys):
+    def exists(self, *keys) -> int:
         keys = [self.formatkey(i) for i in keys]
         return super().exists(*keys)
     
