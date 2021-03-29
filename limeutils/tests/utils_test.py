@@ -1,6 +1,6 @@
 import pytest
 from icecream import ic
-from limeutils import utils
+from limeutils import utils, listify
 
 
 param = [(3, True), (3.0, True), (0, True), ('3.4', True), ('0.4', True), ('0.0', True),
@@ -52,3 +52,15 @@ param = [
 @pytest.mark.utilfocus
 def test_oxford_comma(seq, out):
     assert utils.oxford_comma(seq) == out
+
+
+param = [
+    ('foo', ['foo']), (['foo'], ['foo']),
+    (['foo', 'bar'], ['foo', 'bar']),
+    (('foo',), ['foo']), (('foo', 'bar'), ['foo', 'bar']),
+    ({'foo'}, ['foo']), ({'foo', 'bar'}, ['foo', 'bar'])
+]
+@pytest.mark.parametrize('data, out', param)
+@pytest.mark.focus
+def test_listify(data, out):
+    assert listify(data) == out
