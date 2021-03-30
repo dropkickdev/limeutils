@@ -1,4 +1,5 @@
 import pytest
+from collections import Counter
 from icecream import ic
 from limeutils import utils, listify
 
@@ -63,4 +64,4 @@ param = [
 @pytest.mark.parametrize('data, out', param)
 @pytest.mark.focus
 def test_listify(data, out):
-    assert listify(data) == out
+    assert Counter(listify(data)) == Counter(out)

@@ -47,7 +47,7 @@ class Red(Redis):
         key = self.formatkey(key)
         clear = kwargs.pop('clear', False)
         insert = kwargs.pop('insert', 'end')
-        ex = kwargs.pop('ex', self.ttl)
+        ex = kwargs.pop('ttl', self.ttl)
         
         if clear:
             self.delete(key)
