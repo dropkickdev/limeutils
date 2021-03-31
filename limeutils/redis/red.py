@@ -68,21 +68,24 @@ class Red(Redis):
             else:
                 raise ValidationError(choices=['start', 'end'])
             
-            self.expire(key, ex)
+            if ex != -1:
+                self.expire(key, ex)
             return ret
             
         elif isinstance(val, dict):
             if self.clear_wrongtype and self._get_type(key) != 'hash':
                 self.delete(key)
             ret = self.hset(key, mapping=val)
-            self.expire(key, ex)
+            if ex != -1:
+                self.expire(key, ex)
             return ret
         
         elif isinstance(val, set):
             if self.clear_wrongtype and self._get_type(key) != 'set':
                 self.delete(key)
             ret = self.sadd(key, *val)
-            self.expire(key, ex)
+            if ex != -1:
+                self.expire(key, ex)
             return ret
     
     
