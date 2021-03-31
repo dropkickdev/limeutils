@@ -111,13 +111,13 @@ def oxford_comma(sequence: Union[list, tuple, set], separator: str = 'or'):
         return '{}, {} {}'.format(', '.join(sequence[:-1]), separator, sequence[-1])
     
     
-def listify(data: Union[str, list, set, tuple]) -> list:
+def listify(data: Union[str, int, float, list, set, tuple]) -> list:
     """
-    A convenience function that converts data into a list unless it's already a list.
-    :param data:    Data to check if it needs to be casted as a list
+    A convenience function that converts data into a list unless it's already one.
+    :param data:    Data to turn into a list
     :return:        list
     """
-    if isinstance(data, str):
+    if isinstance(data, (str, int, float)):
         return [data]
     elif isinstance(data, (set, tuple)):
         return list(data)

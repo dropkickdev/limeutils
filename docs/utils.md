@@ -16,6 +16,11 @@ Utilities API
 : *Returns*: `str`
 : - `val`: Bytes value to convert
 
+**`listify(data)`**
+: Converts data to a list if it's not already one. Useful for functions which make use of `*args` in their use.
+: *Returns*: `list` containing the data
+: - `data`: `string`, `int`, `float`, `list`, `tuple`, or `set`.
+
 **`parse_str(string)`**
 : Converts a string to either an int, float, or str depending on its value. Does not support
  pickled values as you'll have to convert those separately. Works well with `byte_conv()`.
