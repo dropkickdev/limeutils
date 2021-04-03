@@ -12,8 +12,8 @@ def test_isfloat(val, out):
     assert utils.isfloat(val) is out
 
 
-param = [('123', 123), ('12.3', 12.3), ('a1b2c3', 'a1b2c3'), ('abc','abc'), ('', ''), ('-', '-'),
-         (None, ValueError), (bytes(), ValueError)]
+param = [('123', 123), ('12.3', 12.3), ('a1b2c3', 'a1b2c3'), ('abc', 'abc'), ('', ''), ('-', '-'),
+         (None, ValueError), (bytes(), ValueError), ('True', True), ('False', False),]
 @pytest.mark.parametrize('val, out', param)
 def test_parse_str(val, out):
     try:

@@ -1,4 +1,5 @@
 from typing import Optional, Union
+from ast import literal_eval
 
 
 def isfloat(val: Union[int, float, str]):
@@ -50,6 +51,8 @@ def parse_str(string: str):
         return int(string)
     elif isfloat(string):
         return float(string)
+    elif string in ['True', 'False']:
+        return literal_eval(string)
     return string
 
 
