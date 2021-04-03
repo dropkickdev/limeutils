@@ -57,10 +57,11 @@ def test_oxford_comma(seq, out):
 
 param = [
     ('foo', ['foo']), (['foo'], ['foo']),
-    (1, [1]), (12.5, [12.5]),
+    # (1, [1]), (12.5, [12.5]),
     (['foo', 'bar'], ['foo', 'bar']),
     (('foo',), ['foo']), (('foo', 'bar'), ['foo', 'bar']),
     ({'foo'}, ['foo']), ({'foo', 'bar'}, ['foo', 'bar']),
+    (True, [True]), (False, [False])
 ]
 @pytest.mark.parametrize('data, out', param)
 @pytest.mark.focus
