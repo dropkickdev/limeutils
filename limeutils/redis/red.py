@@ -127,6 +127,11 @@ class Red(Redis):
 
 
     def exists(self, *keys) -> int:
+        """
+        Checks if keys exists. Returns the number of keys that exist not which of the keys exists.
+        :param keys:    Names of keys
+        :return:        int No. of keys that exist
+        """
         keys = [self.formatkey(i) for i in keys]
         return super().exists(*keys)
     
