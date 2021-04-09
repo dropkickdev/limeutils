@@ -15,7 +15,7 @@ def red():
         'ver': '',
         'ttl': 3600 * 24 * 15,
     }
-    return Red(**CACHE_CONFIG)
+    yield Red(**CACHE_CONFIG)
 
 
 @pytest.fixture(scope='session')

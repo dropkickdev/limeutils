@@ -7,7 +7,7 @@ from redis.exceptions import ResponseError
 from . import models
 from icecream import ic
 from .models import LIST, VAL, StarterModel
-from limeutils import byte_conv, ValidationError
+from limeutils import byte_conv, ValidationError, listify
 
 
 
@@ -35,7 +35,7 @@ class Red(Redis):
         list_ = list(filter(None, list_))
         return ":".join(list_)
 
-    # TODO: How can they change the datatype if the datatype is set by the existing variable?
+
     def set(self, key: str, val: Union[VAL, LIST, set, dict], **kwargs):
         """
         Set and updates a key
@@ -135,6 +135,16 @@ class Red(Redis):
         keys = [self.formatkey(i) for i in keys]
         return super().exists(*keys)
     
+    
+    def delete(self, *keys):
+        """
+        Delete keys
+        :param keys:    Keys to delete
+        :return:        int Number of keys deleted
+        """
+        keys = list(map(self.formatkey, keys))
+        return super().delete(*keys)
+
     
     def _get_type(self, key: str):
         return byte_conv(super().type(key))
