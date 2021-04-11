@@ -64,6 +64,6 @@ param = [
     (True, [True]), (False, [False])
 ]
 @pytest.mark.parametrize('data, out', param)
-# @pytest.mark.focus
+@pytest.mark.focus
 def test_listify(data, out):
     assert Counter(listify(data)) == Counter(out)

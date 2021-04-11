@@ -121,9 +121,9 @@ def listify(data: Union[str, int, float, list, set, tuple, bool]) -> list:
     :param data:    Data to turn into a list
     :return:        list
     """
-    if isinstance(data, (str, int, float)):
-        return [data]
+    if isinstance(data, list):
+        return data
     elif isinstance(data, (set, tuple)):
         return list(data)
     else:
-        return data
+        return [data]
