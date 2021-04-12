@@ -1,9 +1,8 @@
 limeutils
 =========
 
-Limeutils is a small collection of classes and methods for dealing with Redis data (which comes in
- bytes) and a few other helpful functions. Check out the documentation for information
- . More classes to be added.
+Limeutils is a small collection of classes and methods for dealing with Redis data and a few other helpful functions. Check out the documentation for information
+ . More classes to be added as needed.
 
 This package uses [Pydantic models][pydantic] to validate its data.
 
