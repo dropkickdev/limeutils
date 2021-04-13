@@ -42,6 +42,22 @@ def test_hash(red):
     red.delete('user')
 
 
+@pytest.mark.focus
+def test_get_none(red):
+    red.delete('xxxyyyzzz')
+    assert red.get('xxxyyyzzz') is None
+    assert red.get('xxxyyyzzz', 'foo') == 'foo'
+    assert red.get('xxxyyyzzz', []) == []
+    assert red.get('xxxyyyzzz', [123, 345]) == [123, 345]
+    assert red.get('xxxyyyzzz', [123, 345]) == [123, 345]
+    assert red.get('xxxyyyzzz', {}) == {}
+    assert red.get('xxxyyyzzz', dict(a='b')) == dict(a='b')
+    assert red.get('xxxyyyzzz', 123) == 123
+    assert red.get('xxxyyyzzz', True)
+    assert not red.get('xxxyyyzzz', False)
+    
+
+
 # @pytest.mark.focus
 def test_set_data(red):
     red.delete('norepeat')
@@ -55,7 +71,7 @@ param = [
     ('three', dict(age=34, username='sally', gender='f'), ['one', 'two', 'three'], 3)
 ]
 @pytest.mark.parametrize('key, val, check, out', param)
-@pytest.mark.focus
+# @pytest.mark.focus
 def test_exists(red, key, val, check, out):
     red.set(key, val)
     assert red.exists(*check) == out

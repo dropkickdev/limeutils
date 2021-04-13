@@ -89,10 +89,11 @@ class Red(Redis):
             return ret
     
     
-    def get(self, key: str, **kwargs):
+    def get(self, key: str, default=None, **kwargs):
         """
         Get the value of a key
         :param key:     Key name
+        :param default: Default value if key doesn't exist
         :param kwargs:  Checks for start, end, only, and parent kwargs
         :return:        Depends on the type of key
         """
@@ -124,6 +125,7 @@ class Red(Redis):
         elif datatype == 'set':
             data = super().smembers(key)
             return {byte_conv(v) for v in data}
+        return default
 
 
     def exists(self, *keys) -> int:
