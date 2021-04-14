@@ -127,3 +127,18 @@ def listify(data: Union[str, int, float, list, set, tuple, bool]) -> list:
         return list(data)
     else:
         return [data]
+
+
+# TESTME: Untested
+def valid_str_only(item, allow_bool: bool = False) -> bool:
+    """
+    Removes empty strings and other invalid values passed that aren't valid strings.
+    :param item:        Check if valid str
+    :param allow_bool:  Allow the use of bool only if True
+    :return:            bool
+    """
+    if isinstance(item, str) and len(item) > 0:
+        return True
+    if allow_bool and item:
+        return True
+    return False

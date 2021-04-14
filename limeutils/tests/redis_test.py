@@ -42,7 +42,7 @@ def test_hash(red):
     red.delete('user')
 
 
-@pytest.mark.focus
+# @pytest.mark.focus
 def test_get_none(red):
     red.delete('xxxyyyzzz')
     assert red.get('xxxyyyzzz') is None

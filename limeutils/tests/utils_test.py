@@ -1,7 +1,7 @@
 import pytest
 from collections import Counter
 from icecream import ic
-from limeutils import utils, listify
+from limeutils import utils, listify, valid_str_only
 
 
 param = [(3, True), (3.0, True), (0, True), ('3.4', True), ('0.4', True), ('0.0', True),
@@ -57,13 +57,28 @@ def test_oxford_comma(seq, out):
 
 param = [
     ('foo', ['foo']), (['foo'], ['foo']),
-    # (1, [1]), (12.5, [12.5]),
+    (1, [1]), (12.5, [12.5]),
     (['foo', 'bar'], ['foo', 'bar']),
     (('foo',), ['foo']), (('foo', 'bar'), ['foo', 'bar']),
     ({'foo'}, ['foo']), ({'foo', 'bar'}, ['foo', 'bar']),
     (True, [True]), (False, [False])
 ]
 @pytest.mark.parametrize('data, out', param)
-@pytest.mark.focus
+# @pytest.mark.focus
 def test_listify(data, out):
     assert Counter(listify(data)) == Counter(out)
+
+
+param = [
+    ('', False, False), ([], False, False), (None, False, False), (1, False, False),
+    (1.5, False, False), (False, False, False), (True, False, False), ('a', False, True),
+    (set(), False, False), ('', False, False), (True, True, True), (False, True, False)
+]
+@pytest.mark.parametrize('item, allow, out', param)
+@pytest.mark.focus
+def test_valid_str_only(item, allow, out):
+    if allow:
+        assert valid_str_only(item, allow_bool=True) == out
+    else:
+        assert valid_str_only(item) == out
+        
