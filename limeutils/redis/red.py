@@ -24,16 +24,28 @@ class Red(Redis):
     
     def formatkey(self, key: str) -> str:
         """
-        Create the final key name with prefix and/or version
+        Create the final key name with prefix and/or version if necessary
         :param key: The key to format
         :return:    str
         """
         pre = self.pre.strip()
         ver = self.ver.strip()
+        
+        # Prevent multiple formatting which would be bad
+        ll = key.split(':')
+        if pre and ver:
+            if ll[0] == pre and ll[1] == ver:
+                return key
+        elif pre and not ver:
+            if ll[0] == pre:
+                return key
+        elif not pre and ver:
+            if ll[0] == ver:
+                return key
 
-        list_ = [pre, ver, key]
-        list_ = list(filter(None, list_))
-        return ":".join(list_)
+        ll = [pre, ver, key]
+        ll = list(filter(None, ll))
+        return ":".join(ll)
 
 
     def set(self, key: str, val: Union[VAL, LIST, set, dict], **kwargs):
@@ -134,6 +146,8 @@ class Red(Redis):
         :param keys:    Names of keys
         :return:        int No. of keys that exist
         """
+        for i in keys:
+            pass
         keys = [self.formatkey(i) for i in keys]
         return super().exists(*keys)
     
