@@ -21,6 +21,28 @@ class Red(Redis):
         self.clear_wrongtype = kwargs.pop('wrongtype', True)
         super().__init__(*args, **kwargs)
 
+
+    def stripper(self, key: str):
+        """
+        Removes the pre and ver from a key name
+        :param key:     Key name
+        :return:
+        """
+        pre = self.pre.strip()
+        ver = self.ver.strip()
+
+        ll = key.split(':')
+        if pre and ver:
+            if ll[0] == pre and ll[1] == ver:
+                return ':'.join(ll[2:])
+        elif pre and not ver:
+            if ll[0] == pre:
+                return ':'.join(ll[1:])
+        elif not pre and ver:
+            if ll[0] == ver:
+                return ':'.join(ll[1:])
+        
+
     
     def formatkey(self, key: str) -> str:
         """
@@ -101,7 +123,7 @@ class Red(Redis):
             return ret
     
     
-    def get(self, key: str, default=None, **kwargs):
+    def get(self, key: str, default=None, exact=True, **kwargs):
         """
         Get the value of a key
         :param key:     Key name
@@ -164,6 +186,17 @@ class Red(Redis):
     
     def _get_type(self, key: str):
         return byte_conv(super().type(key))
+
+
+    def keys(self, pattern: str):
+        """
+        Get keys by pattern
+        :param pattern: Ex. something-*
+        :return:        list
+        """
+        fullkey = self.formatkey(pattern)
+        key_list = [self.stripper(byte_conv(i)) for i in super().keys(fullkey)]
+        return key_list
 
 
 # class Redis:
