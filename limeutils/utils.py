@@ -1,3 +1,4 @@
+from datetime import datetime, timezone, timedelta
 from typing import Optional, Union, Tuple
 from ast import literal_eval
 
@@ -166,3 +167,24 @@ def setup_pagination(
         page = 1
     offset = (page - 1) * items
     return orderby, offset, items
+
+
+def offset_datetime(dt: datetime, offset: str) -> datetime:
+    """
+    Offsite the datetime instance to their local time
+    :param dt:      Datetime to convert.
+    :param offset:  Offset the dt by this amount. Accepts +08:00 or +8.
+    :return:        Modified datetime according to offset
+    """
+    offset = offset.split(':')
+    if len(offset) == 2:
+        hours, mins = offset
+        hours = int(hours.strip())
+        mins = hours < 0 and int(mins.strip()) * -1 or int(mins.strip())
+        mins += 60 * hours
+    else:
+        hours = int(offset[0].strip())
+        mins = hours * 60
+    
+    tz = timezone(timedelta(minutes=mins))
+    return dt.astimezone(tz)
