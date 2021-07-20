@@ -1,4 +1,4 @@
-from typing import Optional, Union
+from typing import Optional, Union, Tuple
 from ast import literal_eval
 
 
@@ -142,3 +142,27 @@ def valid_str_only(item, allow_bool: bool = False) -> bool:
     if allow_bool and item:
         return True
     return False
+
+
+def setup_pagination(
+    *, items: int = 10, total: int, page: int = 1, sort: str, direction: str = 'desc',
+    asc: str = 'asc', dirflipper: str = '-', restartpage: bool = True, **_
+) -> Tuple[str, int, int]:
+    """
+    Generate the values to be used in pagination
+    :param items:           Number of rows to show
+    :param total:           Total count for all rows
+    :param page:            Page num
+    :param sort:            Column to sort from
+    :param direction:       asc or desc
+    :param asc:             String to identify asc
+    :param dirflipper:      String to identify a desc order
+    :param restartpage:     If the page exceeds the maximimum, this shows page one instead
+    :return:                tuple: orderby, offset, items
+    """
+    direction = '' if direction == asc else dirflipper
+    orderby = f'{direction}{sort}'
+    if restartpage and items * (page - 1) > total:
+        page = 1
+    offset = (page - 1) * items
+    return orderby, offset, items
