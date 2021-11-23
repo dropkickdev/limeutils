@@ -190,5 +190,11 @@ def offset_datetime(dt: datetime, offset: str) -> datetime:
     return dt.astimezone(tz)
 
 
+# TESTME: Untested
 def list_object_methods(obj: object):
+    """
+    List what methods are available for an objectn. Still untested.
+    :param obj: Any class object (I think)
+    :return:    Not sure yet
+    """
     return [method_name for method_name in dir(obj) if callable(getattr(obj, method_name))]
