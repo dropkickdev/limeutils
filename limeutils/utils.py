@@ -188,3 +188,7 @@ def offset_datetime(dt: datetime, offset: str) -> datetime:
     
     tz = timezone(timedelta(minutes=mins))
     return dt.astimezone(tz)
+
+
+def list_object_methods(obj: object):
+    return [method_name for method_name in dir(obj) if callable(getattr(obj, method_name))]
