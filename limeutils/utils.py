@@ -1,6 +1,7 @@
 from datetime import datetime, timezone, timedelta
-from typing import Optional, Union, Tuple
+from typing import Optional, Union, Tuple, Any
 from ast import literal_eval
+from enum import Enum, IntEnum
 
 
 def isfloat(val: Union[int, float, str]):
@@ -198,3 +199,16 @@ def list_object_methods(obj: object):
     :return:    Not sure yet
     """
     return [method_name for method_name in dir(obj) if callable(getattr(obj, method_name))]
+
+
+def reverse_choices(choices: Union[Enum, IntEnum], value: Any):
+    """
+    For use with choices. Just pass the value and it will return the name associated to it.
+    Good for reversing a db value (int) to its readable name attr
+    :param choices: Enum, IntEnum
+    :param value:   The value of the choice
+    :return:        str
+    """
+    for i in choices:               # noqa
+        if i.value == value:
+            return i.name
