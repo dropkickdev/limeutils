@@ -4,7 +4,6 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-twine = "*"
 sphinx = "*"
 pytest = "*"
 interrogate = "*"
@@ -20,6 +19,7 @@ limeutils = {path = "."}
 markdown-include = "*"
 hiredis = "*"
 pygments = "*"
+twine = "*"
 
 [requires]
 python_version = "3.9"
