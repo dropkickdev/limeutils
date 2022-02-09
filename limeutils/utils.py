@@ -70,6 +70,9 @@ def split_fullname(fullname: str, default: str = '',
     :param suffix:      Custom suffixes to append to the default list
     :return:            tuple
     """
+    if not fullname:
+        return '', ''
+    
     if prefix and not isinstance(prefix, (str, list, tuple)):
         raise TypeError('`prefix` must be a list/str for multi/single values.')
 
