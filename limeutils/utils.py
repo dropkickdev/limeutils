@@ -119,19 +119,16 @@ def oxford_comma(sequence: Union[list, tuple, set], separator: str = 'or'):
         return '{}, {} {}'.format(', '.join(sequence[:-1]), separator, sequence[-1])
     
     
-def listify(data: Union[str, int, float, list, set, tuple, bool]) -> list:
+def listify(data: any) -> list:
     """
     A convenience function that converts data into a list unless it's already one.
     Bool is a subset of int.
-    :param data:    Data to turn into a list
+    :param data:    Data to place into a list
     :return:        list
     """
-    if isinstance(data, list):
-        return data
-    elif isinstance(data, (set, tuple)):
+    if isinstance(data, (list, set, tuple)):
         return list(data)
-    else:
-        return [data]
+    return [data]
 
 
 # TESTME: Untested
