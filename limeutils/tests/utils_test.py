@@ -1,7 +1,7 @@
 import pytest
 from collections import Counter
 from icecream import ic
-from limeutils import utils, listify, valid_str_only
+from limeutils import utils, listify, valid_str_only, istimezone
 
 
 param = [(3, True), (3.0, True), (0, True), ('3.4', True), ('0.4', True), ('0.0', True),
@@ -75,10 +75,21 @@ param = [
     (set(), False, False), ('', False, False), (True, True, True), (False, True, False)
 ]
 @pytest.mark.parametrize('item, allow, out', param)
-@pytest.mark.focus
+# @pytest.mark.focus
 def test_valid_str_only(item, allow, out):
     if allow:
         assert valid_str_only(item, allow_bool=True) == out
     else:
         assert valid_str_only(item) == out
-        
+
+
+param = [
+    ('-1200', True), ('-0800', True), ('-0330', True), ('-0100', True),
+    ('+0800', True), ('+0000', True), ('+1300', True), ('+0100', True),
+    ('0800', False), ('0000', False), ('1300', False),
+    ('+1500', False), ('-1300', False)
+]
+@pytest.mark.parametrize('tz, out', param)
+# @pytest.mark.focus
+def test_istimezone(tz, out):
+    assert istimezone(tz) == out

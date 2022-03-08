@@ -2,6 +2,24 @@ from datetime import datetime, timezone, timedelta
 from typing import Optional, Union, Tuple, Any
 from ast import literal_eval
 from enum import Enum, IntEnum
+from icecream import ic
+
+
+
+def istimezone(val: str) -> bool:
+    """
+    Check if the string is a valid timezone.
+    :param val: String to check
+    :return:    bool
+    """
+    # val = val.replace(':', '').strip()
+    status = val in [
+        '-1200', '-1100', '-1000', '-0930', '-0900', '-0800', '-0700', '-0600', '-0500', '-0400',
+        '-0330', '-0300', '-0200', '-0100', '+0000', '+0100', '+0200', '+0300', '+0330', '+0400',
+        '+0430', '+0500', '+0530', '+0545', '+0600', '+0630', '+0700', '+0800', '+0845', '+0900',
+        '+0930', '+1000', '+1030', '+1100', '+1200', '+1245', '+1300', '+1400'
+    ]
+    return status
 
 
 def isfloat(val: Union[int, float, str]):
@@ -42,14 +60,16 @@ def byte_conv(val: Union[bytes, str]):
 def parse_str(string: str):
     """
     Converts a string to either an int, float, or str depending on its value.
-    :param string:   String to convert
-    :return:    int, float, or str
+    :param string:  String to convert
+    :return:        int, float, or str
     """
     if not isinstance(string, str):
         raise ValueError('Only valid strings can be parsed.')
     
     string = string.strip()
-    if string.isdigit():
+    if istimezone(string):
+        return string
+    elif string.isdigit():
         return int(string)
     elif isfloat(string):
         return float(string)
@@ -212,3 +232,6 @@ def reverse_choices(choices: Union[Enum, IntEnum], value: Any):
     for i in choices:               # noqa
         if i.value == value:
             return i.name
+        
+def utc_to_offset(offset: int):
+    pass
