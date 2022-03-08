@@ -1,7 +1,10 @@
-import pytest
+import pytest, pytz
+from datetime import datetime
 from collections import Counter
+
+import pytz
 from icecream import ic
-from limeutils import utils, listify, valid_str_only, istimezone
+from limeutils import utils, listify, valid_str_only, istimezone, utc_to_offset
 
 
 param = [(3, True), (3.0, True), (0, True), ('3.4', True), ('0.4', True), ('0.0', True),
@@ -93,3 +96,25 @@ param = [
 # @pytest.mark.focus
 def test_istimezone(tz, out):
     assert istimezone(tz) == out
+
+
+param = [
+    (datetime(2020, 1, 1, 10, 30, 1, tzinfo=pytz.UTC), '+0000', '2020-01-01 10:30:01 +0000'),
+    (datetime(2020, 1, 1, 10, 30, 1, tzinfo=pytz.UTC), '+0100', '2020-01-01 11:30:01 +0100'),
+    (datetime(2020, 1, 1, 10, 30, 1, tzinfo=pytz.UTC), '+0500', '2020-01-01 15:30:01 +0500'),
+    (datetime(2020, 1, 1, 10, 30, 1, tzinfo=pytz.UTC), '+1200', '2020-01-01 22:30:01 +1200'),
+    (datetime(2020, 1, 1, 10, 30, 1, tzinfo=pytz.UTC), '-0330', '2020-01-01 07:00:01 -0330'),
+    (datetime(2020, 1, 1, 20, 30, 1, tzinfo=pytz.UTC), '+0900', '2020-01-02 05:30:01 +0900'),
+    (datetime(2020, 1, 1, 20, 30, 1, tzinfo=pytz.UTC), '-0200', '2020-01-01 18:30:01 -0200'),
+    (datetime(2020, 1, 1, 20, 30, 1, tzinfo=pytz.UTC), '-1200', '2020-01-01 08:30:01 -1200'),
+    (datetime(2020, 1, 1, 3, 30, 1, tzinfo=pytz.UTC), '-0700', '2019-12-31 20:30:01 -0700'),
+]
+@pytest.mark.parametrize('basedate, offset, datestr', param)
+# @pytest.mark.focus
+def test_utc_to_offset(basedate, offset, datestr):
+    date_format = '%Y-%m-%d %H:%M:%S %z'
+
+    newdate = utc_to_offset(basedate, offset)
+    assert isinstance(newdate, datetime)
+    assert newdate.strftime('%z') == offset
+    assert newdate.strftime(date_format) == datestr

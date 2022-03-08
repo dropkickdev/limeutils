@@ -233,5 +233,18 @@ def reverse_choices(choices: Union[Enum, IntEnum], value: Any):
         if i.value == value:
             return i.name
         
-def utc_to_offset(offset: int):
-    pass
+
+def utc_to_offset(basedate: datetime, offset: str) -> datetime:
+    """
+    Shift a UTC datetime using an offset. Usefull for changing a user's date according
+    to their saved timezone setting.
+    :param basedate:    UTC datetime
+    :param offset:      Offset to shift it to
+    :return:            datetime
+    """
+    if not istimezone(offset):
+        raise ValueError('The offset must be a valid GMT offset')
+        
+    newdate = basedate.replace(tzinfo=timezone.utc)
+    newdate = newdate.astimezone(datetime.strptime(offset, '%z').tzinfo)
+    return newdate
