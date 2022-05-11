@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="limeutils", # Replace with your own username
-    version="0.2.9",
+    version="0.2.10",
     author="dropickdev",
     author_email="enchance@gmail.com",
     description="Utility functions for python. Functions were made and tested in FastAPI but are "
