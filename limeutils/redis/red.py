@@ -41,8 +41,7 @@ class Red(Redis):
         elif not pre and ver:
             if ll[0] == ver:
                 return ':'.join(ll[1:])
-        
-
+    
     
     def formatkey(self, key: str) -> str:
         """
@@ -191,7 +190,7 @@ class Red(Redis):
     def keys(self, pattern: str):
         """
         Get keys by pattern
-        :param pattern: Ex. something-*
+        :param pattern: NOT regex. Just a simple string pattern. Ex. something-*
         :return:        list
         """
         fullkey = self.formatkey(pattern)
