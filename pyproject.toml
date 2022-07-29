@@ -1,8 +1,17 @@
 [tool.poetry]
 name = "limeutils"
 version = "0.2.12"
-description = ""
+description = "A small collection of classes and methods for dealing with Redis and more."
 authors = ["enchance <enchance@gmail.com>"]
+
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/dropkickdev/limeutils.git"
+repository = "https://github.com/dropkickdev/limeutils.git"
+documentation = "https://dropkickdev.github.io/limeutils/"
+keywords = ["utils", "python3"]
+include = ["LICENSE"]
+
 
 [tool.poetry.dependencies]
 python = "^3.9"
