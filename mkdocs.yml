@@ -1,0 +1,32 @@
+site_name: Limeutils
+theme:
+  name: material
+  palette:
+    primary: lime
+    accent: lime
+  icon:
+    repo: fontawesome/brands/github-alt
+
+repo_name: dropkickdev/limeutils
+repo_url: https://github.com/dropkickdev/limeutils.git
+edit_uri: ''
+
+nav:
+  - Home: index.md
+  - Redis:
+    - Quickstart: redis/quickstart.md
+    - Redis API: redis/api.md
+#    - Models: redis/models.md
+  - Utilities: utils.md
+  - changelog.md
+
+markdown_extensions:
+#  - toc:
+#      permalink: true
+  - markdown.extensions.codehilite:
+      guess_lang: false
+  - markdown_include.include:
+      base_path: docs
+  - admonition
+  - codehilite
+  - extra
