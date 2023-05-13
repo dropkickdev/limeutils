@@ -152,3 +152,12 @@ def test_delete(red, key, val):
         assert ret == len(key)
         for idx, k in enumerate(key):
             assert red.get(k) is None
+
+
+@pytest.mark.focus
+def test_keys(red):
+    x = red.keys()
+    ic(x)
+    red.set('436354y', 'bbb')
+    x = red.keys()
+    

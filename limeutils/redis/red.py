@@ -122,7 +122,7 @@ class Red(Redis):
             return ret
     
     
-    def get(self, key: str, default=None, exact=True, **kwargs):
+    def get(self, key: str, default=None, **kwargs):
         """
         Get the value of a key
         :param key:     Key name
