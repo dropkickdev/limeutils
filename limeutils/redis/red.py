@@ -1,5 +1,5 @@
 from redis import Redis
-from typing import Optional, Union, Any, Literal
+from typing import Optional, Union, Any, Literal, List
 from pydantic import BaseModel
 from redis.client import list_or_args
 from redis.exceptions import ResponseError
@@ -187,12 +187,14 @@ class Red(Redis):
         return byte_conv(super().type(key))
 
 
-    def keys(self, pattern: str):
+    def keys(self, pattern: Optional[str] = None) -> List[str]:         # noqa
         """
         Get keys by pattern
         :param pattern: NOT regex. Just a simple string pattern. Ex. something-*
         :return:        list
         """
+        if not pattern:
+            pattern = '*'
         fullkey = self.formatkey(pattern)
         key_list = [self.stripper(byte_conv(i)) for i in super().keys(fullkey)]
         return key_list

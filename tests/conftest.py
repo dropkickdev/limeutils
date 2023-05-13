@@ -1,5 +1,6 @@
 import pytest
 from limeutils import Red
+from icecream import ic
 
 
 
@@ -31,10 +32,15 @@ def nooverwrite():
     }
     return Red(**conf)
 
-
-
-
-
+@pytest.fixture(scope='module')
+def keypatterns(red):
+    red.flushdb()
+    red.set('play-xxx-aaa', '')
+    red.set('play-xxx-bbb', '')
+    red.set('play-yyy-ccc', '')
+    red.set('play-yyy-ddd', '')
+    # def foo():
+    # return foo
 
 
 
