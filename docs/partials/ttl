@@ -1,1 +1,0 @@
-- `ttl`: TTL for this key. Can be in `int` seconds or a `timedelta` object.
