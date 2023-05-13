@@ -39,8 +39,6 @@ def keypatterns(red):
     red.set('play-xxx-bbb', '')
     red.set('play-yyy-ccc', '')
     red.set('play-yyy-ddd', '')
-    # def foo():
-    # return foo
 
 
 

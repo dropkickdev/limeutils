@@ -101,17 +101,17 @@ def split_fullname(fullname: str, default: str = '',
 
     prefix = isinstance(prefix, str) and [prefix] or prefix or []
     suffix = isinstance(suffix, str) and [suffix] or suffix or []
-    PREFIX_LASTNAME = ['dos', 'de', 'delos', 'san', 'dela', 'dona', *prefix]
-    SUFFIX_LASTNAME = ['phd', 'md', 'rn', *suffix]
+    prefix_lastname = ['dos', 'de', 'delos', 'san', 'dela', 'dona', *prefix]
+    suffix_lastname = ['phd', 'md', 'rn', *suffix]
 
     list_ = fullname.split()
     lastname_idx = None
     if len(list_) > 2:
         for idx, val in enumerate(list_):
-            if val.lower() in PREFIX_LASTNAME:
+            if val.lower() in prefix_lastname:
                 lastname_idx = idx
                 break
-            elif val.lower().replace('.', '') in SUFFIX_LASTNAME:
+            elif val.lower().replace('.', '') in suffix_lastname:
                 lastname_idx = idx - 1
             else:
                 if idx == len(list_) - 1:
