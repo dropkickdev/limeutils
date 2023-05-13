@@ -69,16 +69,16 @@ class Red(Redis):
         return ":".join(ll)
 
 
-    def set(self, key: str, val: Union[VAL, LIST, set, dict], **kwargs):
+    def set(self, key: str, val: Union[VAL, LIST, set, dict], clear: bool = False, **kwargs):
         """
         Set and updates a key
         :param key:     Key name
         :param val:     Value to save. Could be any valid value inc dict or list
+        :param clear:   Clear all items or append (if applicable)
         :param kwargs:  Checks for clear, insert, and parent kwargs
         :return:        Depends on the type of key
         """
         key = self.formatkey(key)
-        clear = kwargs.pop('clear', False)
         insert = kwargs.pop('insert', 'end')
         ex = kwargs.pop('ttl', self.ttl)
         
