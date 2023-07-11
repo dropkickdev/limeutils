@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="8167fbfc-710b-4657-b8bd-f89ab9c1aff8" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/limeutils/redis/red.py" beforeDir="false" afterPath="$PROJECT_DIR$/limeutils/redis/red.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/poetry.lock" beforeDir="false" afterPath="$PROJECT_DIR$/poetry.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -54,7 +54,8 @@
       <option name="presentableId" value="Default" />
       <updated>1683968914261</updated>
       <workItem from="1683968915988" duration="5829000" />
-      <workItem from="1683979611474" duration="186000" />
+      <workItem from="1683979611474" duration="951000" />
+      <workItem from="1689047785456" duration="745000" />
     </task>
     <servers />
   </component>
