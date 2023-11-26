@@ -1,5 +1,5 @@
 from redis import Redis
-from typing import Optional, Union, Any, Literal
+from typing import Optional, Union, Any, Literal, List
 from pydantic import BaseModel
 from redis.client import list_or_args
 from redis.exceptions import ResponseError
@@ -41,8 +41,7 @@ class Red(Redis):
         elif not pre and ver:
             if ll[0] == ver:
                 return ':'.join(ll[1:])
-        
-
+    
     
     def formatkey(self, key: str) -> str:
         """
@@ -70,16 +69,16 @@ class Red(Redis):
         return ":".join(ll)
 
 
-    def set(self, key: str, val: Union[VAL, LIST, set, dict], **kwargs):
+    def set(self, key: str, val: Union[VAL, LIST, set, dict], clear: bool = False, **kwargs):
         """
         Set and updates a key
         :param key:     Key name
         :param val:     Value to save. Could be any valid value inc dict or list
+        :param clear:   Clear all items or append (if applicable)
         :param kwargs:  Checks for clear, insert, and parent kwargs
         :return:        Depends on the type of key
         """
         key = self.formatkey(key)
-        clear = kwargs.pop('clear', False)
         insert = kwargs.pop('insert', 'end')
         ex = kwargs.pop('ttl', self.ttl)
         
@@ -123,7 +122,7 @@ class Red(Redis):
             return ret
     
     
-    def get(self, key: str, default=None, exact=True, **kwargs):
+    def get(self, key: str, default=None, **kwargs):
         """
         Get the value of a key
         :param key:     Key name
@@ -188,12 +187,14 @@ class Red(Redis):
         return byte_conv(super().type(key))
 
 
-    def keys(self, pattern: str):
+    def keys(self, pattern: Optional[str] = None) -> List[str]:         # noqa
         """
         Get keys by pattern
-        :param pattern: Ex. something-*
+        :param pattern: NOT regex. Just a simple string pattern. Ex. something-*
         :return:        list
         """
+        if not pattern:
+            pattern = '*'
         fullkey = self.formatkey(pattern)
         key_list = [self.stripper(byte_conv(i)) for i in super().keys(fullkey)]
         return key_list

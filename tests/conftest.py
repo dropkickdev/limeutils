@@ -1,5 +1,6 @@
 import pytest
 from limeutils import Red
+from icecream import ic
 
 
 
@@ -7,7 +8,7 @@ from limeutils import Red
 
 @pytest.fixture(scope='session')
 def red():
-    CACHE_CONFIG = {
+    conf = {
         # 'host': 'localhost',
         # 'port': 6379,
         'db': 1,
@@ -15,12 +16,12 @@ def red():
         'ver': '',
         'ttl': 3600 * 24 * 15,
     }
-    yield Red(**CACHE_CONFIG)
+    yield Red(**conf)
 
 
 @pytest.fixture(scope='session')
 def nooverwrite():
-    CACHE_CONFIG = {
+    conf = {
         # 'host': 'localhost',
         # 'port': 6379,
         'db': 1,
@@ -29,12 +30,15 @@ def nooverwrite():
         'ttl': 3600 * 24 * 15,
         'wrongtype': False
     }
-    return Red(**CACHE_CONFIG)
+    return Red(**conf)
 
-
-
-
-
+@pytest.fixture(scope='module')
+def keypatterns(red):
+    red.flushdb()
+    red.set('play-xxx-aaa', '')
+    red.set('play-xxx-bbb', '')
+    red.set('play-yyy-ccc', '')
+    red.set('play-yyy-ddd', '')
 
 
 

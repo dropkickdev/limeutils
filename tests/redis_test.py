@@ -1,4 +1,5 @@
 import pytest
+from collections import Counter
 from redis.exceptions import ResponseError
 from limeutils import byte_conv, ValidationError       # noqa
 from icecream import ic     # noqa
@@ -152,3 +153,21 @@ def test_delete(red, key, val):
         assert ret == len(key)
         for idx, k in enumerate(key):
             assert red.get(k) is None
+
+
+xxxkeys = ['play-xxx-aaa', 'play-xxx-bbb']
+yyykeys = ['play-yyy-ccc', 'play-yyy-ddd']
+@pytest.mark.parametrize('pattern, out', [
+    ('*', [*xxxkeys, *yyykeys]),
+    ('play-*', [*xxxkeys, *yyykeys]),
+    ('*xxx*', [*xxxkeys]),
+    ('*yyy*', [*yyykeys]),
+    ('', [*xxxkeys, *yyykeys]),
+    (None, [*xxxkeys, *yyykeys]),
+    ('play', []),
+    ('*play', []),
+])
+@pytest.mark.focus
+def test_keys(red, keypatterns, pattern, out):
+    assert Counter(red.keys(pattern)) == Counter(out)
+    
