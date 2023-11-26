@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "limeutils"
-version = "0.3.1"
+version = "0.4.0"
 description = ""
 authors = ["enchance <enchance@gmail.com>"]
 readme = "README.md"
@@ -19,7 +19,7 @@ include = ['LICENSE']
 python = "^3.11"
 redis = "^5.0.1"
 hiredis = "^2.2.3"
-pydantic = "^2.5.1"
+pydantic = ">=1.9.0,<2.0.0"
 pytz = "^2023.3.post1"
 
 [tool.poetry.group.dev.dependencies]
